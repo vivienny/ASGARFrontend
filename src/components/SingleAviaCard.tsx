@@ -3,7 +3,7 @@ import './SingleAviaCard.css'
 
 interface Props {
     ID: number
-    Img: string
+    Img?: string 
     Name: string
     Info: string
     FullDescription: string

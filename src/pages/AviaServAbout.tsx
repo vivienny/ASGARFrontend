@@ -2,19 +2,15 @@ import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Alert, Spinner } from 'react-bootstrap'
 import Breadcrumbs from '../components/Aviacrumbs'
-import SingleAviaCard from '../components/SingleAviaCard'
+import VibesContainer from '../components/VibesContainer'
 
-// TYPE-ONLY импорты
 import type { ASGARService } from '../modules/asgarApi'
-
-// Обычные импорты
 import { fetchServiceById } from '../modules/asgarApi'
 import { MOCK_SERVICES } from '../modules/mock'
 
 import './AviaServAbout.css'
 
-// Ссылка на видео
-const BACKGROUND_VIDEO = '/aviafone.mp4'
+const PRODUCT_VIDEO = '/aviafone.mp4'
 
 const ServiceDetailPage = () => {
     const videoRef = useRef<HTMLVideoElement>(null)
@@ -24,8 +20,8 @@ const ServiceDetailPage = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
     const [useMock, setUseMock] = useState(false)
+    const [showFullDescription, setShowFullDescription] = useState(false)
 
-    // Автопроигрывание видео - ОДИН РАЗ
     useEffect(() => {
         if (videoRef.current) {
             videoRef.current.play().catch(e => {
@@ -50,7 +46,6 @@ const ServiceDetailPage = () => {
             const data = await fetchServiceById(serviceId)
             setService(data)
             setUseMock(false)
-            console.log('✅ Данные услуги получены с API')
         } catch (err) {
             const foundService = MOCK_SERVICES.find(s => s.ID === serviceId && !s.IsDelete)
             
@@ -65,25 +60,21 @@ const ServiceDetailPage = () => {
         }
     }
 
-    const handleAddToCart = () => {
-        console.log('Добавлено в корзину:', service)
-        alert('Услуга добавлена в корзину!')
+    const toggleDescription = () => {
+        setShowFullDescription(!showFullDescription)
     }
 
-    // Общая обертка для всех состояний
     const PageWrapper = ({ children }: { children: React.ReactNode }) => (
         <div className="vibes-page">
-            {/* ВИДЕО ОДИН РАЗ - ВСЕГДА */}
-            <video 
-                ref={videoRef}
-                className="vibes-background-video"
-                src={BACKGROUND_VIDEO}
-                loop
-                muted
-                playsInline
-                autoPlay
+            <div className="vibes-black-bg"></div>
+            
+            <VibesContainer 
+                videoRef={videoRef}
+                videoSrc={PRODUCT_VIDEO}
+                service={service}
+                showFullDescription={showFullDescription}
+                onToggleDescription={toggleDescription}
             />
-            <div className="vibes-overlay"></div>
             
             <div className="vibes-content">
                 {children}
@@ -95,7 +86,7 @@ const ServiceDetailPage = () => {
         return (
             <PageWrapper>
                 <Breadcrumbs />
-                <div className="text-center py-5">
+                <div className="vibes-loading">
                     <Spinner animation="border" variant="light" role="status">
                         <span className="visually-hidden">Загрузка...</span>
                     </Spinner>
@@ -109,17 +100,11 @@ const ServiceDetailPage = () => {
         return (
             <PageWrapper>
                 <Breadcrumbs />
-                <Alert variant="danger" className="mt-3">
-                    {error}
-                    <div className="service-actions mt-3">
-                        <button 
-                            className="back-button-large"
-                            onClick={() => navigate('/services')}
-                        >
-                            Вернуться к услугам
-                        </button>
-                    </div>
-                </Alert>
+                <div className="vibes-error">
+                    <Alert variant="danger" className="vibes-alert">
+                        {error}
+                    </Alert>
+                </div>
             </PageWrapper>
         )
     }
@@ -128,18 +113,8 @@ const ServiceDetailPage = () => {
         return (
             <PageWrapper>
                 <Breadcrumbs />
-                <div className="single-service-card">
-                    <div className="single-service-content">
-                        <h2 className="text-white">Услуга не найдена</h2>
-                        <div className="service-actions">
-                            <button 
-                                className="back-button-large"
-                                onClick={() => navigate('/services')}
-                            >
-                                Вернуться к услугам
-                            </button>
-                        </div>
-                    </div>
+                <div className="vibes-not-found">
+                    {/* Пусто */}
                 </div>
             </PageWrapper>
         )
@@ -154,18 +129,6 @@ const ServiceDetailPage = () => {
                     ⚠️ {error}
                 </Alert>
             )}
-
-            <SingleAviaCard
-                ID={service.ID}
-                Img={service.Img}
-                Name={service.Name}
-                Info={service.Info}
-                FullDescription={service.FullDescription}
-                Price={service.Price}
-                Unit={service.Unit}
-                onAddToCart={handleAddToCart}
-                onBack={() => navigate('/services')}
-            />
         </PageWrapper>
     )
 }
