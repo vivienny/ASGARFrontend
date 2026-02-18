@@ -1,0 +1,166 @@
+/* ===== ТОЧНАЯ КОПИЯ СТИЛЕЙ ИЗ СТАРОГО ПРОЕКТА ===== */
+.site-header {
+    background:#ffffff;
+   
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 90px;
+    
+}
+
+.header-container {
+    max-width: 100%;
+    height: 90px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* Логотип - КАК В СТАРОМ ПРОЕКТЕ */
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    margin-top: 17px;
+}
+
+.logo a:hover {
+    transform: scale(1.02);
+}
+
+.logo-img {
+    height: 50px;
+    width: 75px;
+    ;
+}
+
+.company-name {
+    font-size: 2.5rem;
+    font-weight: 680; /* Уменьшил жирность с 800 до 500 */
+    color: hwb(225 6% 38%);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    transform: skewX(-15deg); /* Увеличил наклон с -10deg до -15deg */
+    display: inline-block;
+}
+
+/* Навигационное меню - ВПРАВО (вместо поиска) */
+.main-nav {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.main-nav a {
+    color: rgb(19, 13, 124);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: rgb(19, 13, 124);
+    transition: width 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: rgb(19, 13, 124);
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    width: 100%;
+}
+
+.main-nav a.active {
+    color:rgb(19, 13, 124);
+}
+
+/* АДАПТИВНОСТЬ - КАК В СТАРОМ ПРОЕКТЕ */
+@media (max-width: 992px) {
+    .header-container {
+        padding: 0 20px;
+    }
+    
+    .company-name {
+        font-size: 1.5rem;
+    }
+    
+    .logo-img {
+        height: 40px;
+    }
+    
+    .main-nav {
+        gap: 20px;
+    }
+    
+    .main-nav a {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .main-nav {
+        width: 100%;
+        justify-content: center;
+        order: 3;
+    }
+    
+    .company-name {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-container {
+        padding: 0 15px;
+    }
+    
+    .company-name {
+        font-size: 1.1rem;
+    }
+    
+    .logo-img {
+        height: 35px;
+    }
+    
+    .main-nav {
+        gap: 15px;
+    }
+    
+    .main-nav a {
+        font-size: 0.9rem;
+        padding: 5px 0;
+    }
+}
+
+@media (max-width: 400px) {
+    .main-nav {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}

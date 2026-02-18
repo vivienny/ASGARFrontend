@@ -1,0 +1,406 @@
+/* Стили для фильтров - в стиле поиска */
+.filters-container {
+    background: #fff;
+    border-radius: 40px;
+    padding: 6px 20px; /* Уменьшил вертикальный padding с 8px до 6px */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    transition: box-shadow 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.filters-container:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.filters-title {
+    color: hwb(225 6% 38%); 
+    font-size: 0.95rem; /* Увеличил */
+    font-weight: 600;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(0, 123, 255, 0.2); /* Голубая линия */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filters-title::before {
+    content: '⚙️';
+    font-size: 0.85rem; /* Увеличил */
+    opacity: 0.9;
+}
+
+.filters-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px; /* Увеличил gap */
+}
+
+/* Цена */
+.price-range {
+    display: flex;
+    gap: 100px; /* Значительно увеличил gap между полями */
+    align-items: center;
+    flex: 1 1 280px; /* Увеличил базовую ширину */
+}
+
+.price-group {
+    flex: 1;
+    position: relative;
+    min-width: 90px; /* Увеличил */
+    max-width: 110px; /* Увеличил */
+}
+
+.price-group label {
+    color: #000000;
+    font-weight: 600;
+    font-size: 0.75rem; /* Увеличил с 0.6rem */
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+    display: block;
+    line-height: 1.2;
+}
+
+.price-group input {
+    width: 100%;
+    border: 1.5px solid #007bff; /* Голубая обводка */
+    background: #fff;
+    border-radius: 30px;
+    padding: 8px 14px; /* Увеличил padding */
+    font-size: 0.9rem; /* Увеличил */
+    color: #333;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1); /* Голубая тень */
+    transition: all 0.2s ease;
+    max-width: 110px;
+}
+
+.price-group input:hover {
+    border-color: #0056b3; /* Темнее при наведении */
+    box-shadow: 0 3px 10px rgba(0, 123, 255, 0.15);
+}
+
+.price-group input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    background: #fff;
+}
+
+
+
+/* Сортировка */
+.sort-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 180px; /* Увеличил */
+}
+
+.sort-group label {
+    color: #444;
+    font-weight: 600;
+    font-size: 0.75rem; /* Увеличил */
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+    display: block;
+    line-height: 1.2;
+}
+
+.sort-buttons {
+    display: flex;
+    gap: 8px; /* Увеличил */
+    margin-top: 2px;
+}
+
+.btn-sort {
+    background: #fff;
+    border: 1.5px solid #007bff; /* Голубая обводка */
+    color: #007bff;
+    border-radius: 30px;
+    padding: 6px 16px; /* Увеличил */
+    font-size: 0.85rem; /* Увеличил */
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    height: 36px; /* Увеличил */
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.1);
+}
+
+.btn-sort:hover {
+    background: rgba(0, 123, 255, 0.05);
+    border-color: #0056b3;
+    color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.btn-sort.active {
+    background: #007bff;
+    border-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+    font-weight: 600;
+}
+
+/* Селект (если нужен) */
+.filters-select {
+    border: 1.5px solid #007bff; /* Голубая обводка */
+    background: #fff;
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 0.9rem; /* Увеличил */
+    color: #333;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.1);
+    transition: all 0.2s ease;
+    height: 36px; /* Увеличил */
+    min-width: 150px; /* Увеличил */
+    cursor: pointer;
+}
+
+.filters-select:hover {
+    border-color: #0056b3;
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.15);
+}
+
+.filters-select:focus {
+    border-color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+/* Кнопки действий */
+.filters-actions {
+    display: flex;
+    gap: 12px; /* Увеличил */
+    justify-content: flex-end;
+    margin-left: auto;
+    align-items: center;
+}
+
+.btn-filter-reset {
+    background: #fff;
+    border: 1.5px solid #007bff; /* Голубая обводка */
+    color: #007bff;
+    border-radius: 30px;
+    padding: 6px 22px; /* Увеличил */
+    font-weight: 500;
+    font-size: 0.9rem; /* Увеличил */
+    line-height: 1.2;
+    height: 36px; /* Увеличил */
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-filter-reset:hover {
+    background: rgba(0, 123, 255, 0.05);
+    border-color: #0056b3;
+    color: #0056b3;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.btn-filter-apply {
+    background: #007bff; /* Голубая заливка */
+    border: 1.5px solid #007bff;
+    color: white;
+    border-radius: 30px;
+    padding: 6px 26px; /* Увеличил */
+    font-weight: 600;
+    font-size: 0.9rem; /* Увеличил */
+    line-height: 1.2;
+    height: 36px; /* Увеличил */
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-filter-apply:hover {
+    background: #0056b3; /* Темнее при наведении */
+    border-color: #0056b3;
+    box-shadow: 0 5px 14px rgba(0, 123, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-filter-apply:disabled {
+    background: #e0e0e0;
+    border-color: #ccc;
+    color: #999;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .filters-container {
+        padding: 8px 16px;
+        border-radius: 35px;
+    }
+    
+    .filters-row {
+        gap: 18px;
+    }
+    
+    .price-range {
+        flex: 1 1 260px;
+        gap: 25px;
+    }
+    
+    .price-group {
+        max-width: 100px;
+    }
+    
+    .price-group input {
+        max-width: 100px;
+        padding: 7px 12px;
+    }
+    
+    .price-group:first-child::after {
+        right: -20px;
+        bottom: 9px;
+    }
+    
+    .filters-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .filters-container { 
+        padding: 8px 14px;
+        border-radius: 30px;
+    }
+    
+    .filters-title {
+        font-size: 0.9rem;
+    }
+    
+    .filters-row { 
+        flex-direction: column; 
+        align-items: stretch; 
+        gap: 14px; 
+    }
+    
+    .price-range {
+        width: 100%;
+        gap: 20px;
+        justify-content: space-between;
+    }
+    
+    .price-group {
+        max-width: none;
+    }
+    
+    .price-group input {
+        max-width: none;
+        width: 100%;
+    }
+    
+    .sort-group { 
+        width: 100%; 
+    }
+    
+    .price-group:first-child::after { 
+        display: none; 
+    }
+    
+    .filters-actions { 
+        flex-direction: row; 
+        justify-content: space-between; 
+        margin-top: 6px;
+    }
+}
+
+@media (max-width: 576px) {
+    .filters-container { 
+        padding: 8px 12px; 
+        border-radius: 25px; 
+    }
+    
+    .filters-title { 
+        font-size: 0.85rem; 
+        margin-bottom: 4px; 
+    }
+    
+    .filters-title::before {
+        font-size: 0.75rem;
+    }
+    
+    .price-group label,
+    .sort-group label {
+        font-size: 0.7rem;
+    }
+    
+    .price-group input {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        height: 34px;
+    }
+    
+    .price-range {
+        gap: 16px;
+    }
+    
+    .btn-sort { 
+        height: 34px; 
+        padding: 5px 14px; 
+        font-size: 0.8rem; 
+    }
+    
+    .btn-filter-reset, 
+    .btn-filter-apply { 
+        height: 34px; 
+        padding: 5px 18px; 
+        font-size: 0.85rem; 
+    }
+    
+    .filters-select {
+        height: 34px;
+        padding: 5px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .price-range { 
+        flex-direction: column; 
+        gap: 10px; 
+    }
+}
+
+@media (max-width: 360px) {
+    .filters-container {
+        padding: 6px 10px;
+        border-radius: 20px;
+    }
+    
+    .btn-sort, 
+    .btn-filter-reset, 
+    .btn-filter-apply,
+    .filters-select {
+        font-size: 0.75rem;
+        padding: 4px 12px;
+    }
+}

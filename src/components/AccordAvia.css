@@ -1,0 +1,170 @@
+/* AviaAccordion.css */
+.avia-accordion-single {
+    max-width: 900px !important;
+    width: 100% !important;
+    margin: 10px auto 0 !important;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(19, 13, 124, 0.05);
+    border: 1px solid rgba(19, 13, 124, 0.08);
+    box-sizing: border-box;
+}
+
+.accordion-main-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.accordion-main-header:hover {
+    background: rgba(19, 13, 124, 0.02);
+}
+
+.accordion-main-header.open {
+    background: rgba(19, 13, 124, 0.02);
+    border-bottom: 1px solid rgba(19, 13, 124, 0.08);
+}
+
+.accordion-main-icon {
+    font-size: 1.3rem;
+    min-width: 32px;
+}
+
+.accordion-main-title {
+    flex: 1;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgb(19, 13, 124);
+    text-align: left;
+}
+
+.accordion-main-arrow {
+    font-size: 0.9rem;
+    color: rgb(19, 13, 124);
+    opacity: 0.6;
+    width: 20px;
+    text-align: center;
+}
+
+.accordion-content-area {
+    padding: 20px 24px;
+    background: #fafafa;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.features-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.feature-card-compact {
+    background: white;
+    border-radius: 8px;
+    padding: 16px 20px;
+    border: 1px solid rgba(19, 13, 124, 0.05);
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.feature-card-compact:hover {
+    background: white;
+    border-color: rgba(19, 13, 124, 0.15);
+    box-shadow: 0 4px 10px rgba(19, 13, 124, 0.05);
+    transform: translateY(-1px);
+}
+
+.feature-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.feature-card-icon {
+    font-size: 1.2rem;
+    min-width: 28px;
+}
+
+.feature-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgb(19, 13, 124);
+}
+
+.feature-card-description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+    padding-left: 38px;
+}
+
+/* Адаптивность - только изменение ширины */
+@media (max-width: 992px) {
+    .avia-accordion-single {
+        width: 95% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .avia-accordion-single {
+        width: 95% !important;
+        margin: 8px auto 0 !important;
+    }
+    
+    .accordion-main-header {
+        padding: 12px 18px;
+    }
+    
+    .accordion-content-area {
+        padding: 16px 18px;
+    }
+    
+    .feature-card-compact {
+        padding: 14px 16px;
+    }
+    
+    .feature-card-description {
+        padding-left: 34px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .avia-accordion-single {
+        width: 95% !important;
+        margin: 5px auto 0 !important;
+    }
+    
+    .accordion-main-header {
+        padding: 10px 14px;
+    }
+    
+    .accordion-main-title {
+        font-size: 0.95rem;
+    }
+    
+    .accordion-content-area {
+        padding: 12px 14px;
+    }
+    
+    .feature-card-compact {
+        padding: 12px 12px;
+    }
+    
+    .feature-card-description {
+        padding-left: 28px;
+        font-size: 0.8rem;
+    }
+}

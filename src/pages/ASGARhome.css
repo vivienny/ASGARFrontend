@@ -1,0 +1,336 @@
+.home-page {
+    overflow-x: hidden;
+}
+
+/* Hero секция */
+.hero-section {
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+    min-height: calc(100vh - 60px);
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* Hero контент */
+.hero-content {
+    margin: 0;
+    padding: 20px 20px 0;
+    text-align: center; /* Текст по центру */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем по горизонтали */
+    width: 100%;
+}
+
+/* Хлебные крошки - ТОЛЬКО ИХ СДВИГАЕМ ВЛЕВО */
+.hero-content .breadcrumb,
+.hero-content nav[aria-label="breadcrumb"],
+.hero-content .aviabreadcrumbs {
+    text-align: left !important;
+    justify-content: flex-start !important;
+    align-self: flex-start !important; /* Прижимаем к левому краю */
+    width: 100%;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    margin-bottom: 15px;
+}
+
+.hero-content .breadcrumb-item {
+    text-align: left;
+    justify-content: flex-start;
+    display: inline-flex;
+    align-items: center;
+}
+
+.hero-content .breadcrumb-item a {
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.hero-content .breadcrumb-item a:hover {
+    color: rgb(19, 13, 124);
+    text-decoration: underline;
+}
+
+.hero-content .breadcrumb-item.active {
+    color: rgb(19, 13, 124);
+    font-weight: 500;
+}
+
+.hero-content .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+    margin: 0 8px;
+    color: #999;
+}
+
+/* Заголовки - ПО ЦЕНТРУ */
+.hero-title {
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center; /* По центру */
+}
+
+.hero-title-main {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: rgb(19, 13, 124);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transform: skewX(-10deg);
+    margin-bottom: 15px;
+    text-align: center; /* По центру */
+}
+
+.hero-title-sub {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #666;
+    text-align: center; /* По центру */
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* По центру */
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center; /* Кнопки по центру */
+    align-items: center;
+    width: 100%;
+}
+
+.hero-btn-primary {
+    background: rgb(19, 13, 124) !important;
+    border: none !important;
+    padding: 12px 30px !important;
+    font-weight: 600 !important;
+    transition: transform 0.3s ease !important;
+}
+
+.hero-btn-primary:hover {
+    background: rgb(30, 20, 150) !important;
+    transform: translateY(-2px);
+}
+
+.hero-btn-secondary {
+    color: rgb(19, 13, 124) !important;
+    border: 2px solid rgb(19, 13, 124) !important;
+    padding: 12px 30px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.hero-btn-secondary:hover {
+    background: rgb(19, 13, 124) !important;
+    color: white !important;
+}
+
+.hero-image img {
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Преимущества */
+.features-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgb(19, 13, 124);
+    margin-bottom: 60px;
+    position: relative;
+    transform: skewX(-10deg);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: rgb(19, 13, 124);
+    border-radius: 2px;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 40px 30px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(19, 13, 124, 0.1);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgb(19, 13, 124);
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* CTA секция */
+.cta-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, rgb(19, 13, 124) 0%, rgb(30, 20, 150) 100%);
+    color: white;
+}
+
+.cta-section h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    transform: skewX(-10deg);
+}
+
+.cta-text {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.cta-button {
+    background: white !important;
+    color: rgb(19, 13, 124) !important;
+    border: none !important;
+    padding: 15px 50px !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.cta-button:hover {
+    background: #ffd700 !important;
+    color: rgb(19, 13, 124) !important;
+    transform: scale(1.05);
+}
+
+/* Адаптивность */
+@media (max-width: 300px) {
+    .hero-section {
+        padding: 10px 0 6px;
+        text-align: center;
+    }
+    
+    .hero-content {
+        padding: 30px 20px 0;
+    }
+    
+    .hero-title-main {
+        font-size: 2.8rem;
+    }
+    
+    .hero-title-sub {
+        font-size: 1.2rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 80px 0 40px;
+    }
+    
+    .hero-content {
+        padding: 20px 15px 0;
+    }
+    
+    .hero-title-main {
+        font-size: 2.2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center; /* Кнопки по центру */
+    }
+    
+    .hero-btn-primary,
+    .hero-btn-secondary {
+        width: 100%;
+    }
+    
+    .features-section,
+    .cta-section {
+        padding: 60px 0;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 60px 0 30px;
+    }
+    
+    .hero-content {
+        padding: 15px 10px 0;
+    }
+    
+    .hero-title-main {
+        font-size: 1.8rem;
+    }
+    
+    .hero-title-sub {
+        font-size: 1rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .feature-card {
+        padding: 30px 20px;
+    }
+}

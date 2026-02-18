@@ -1,0 +1,86 @@
+/* ОСНОВНОЙ КОНТЕЙНЕР СТРАНИЦЫ */
+.services-page-wrapper {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* КОНТЕЙНЕР ДЛЯ КАРТОЧЕК - 4 В РЯДУ */
+.services-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряду */
+    gap: 25px;
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 10px 0;
+    justify-items: center; /* Центрируем карточки внутри ячеек */
+}
+
+/* Заголовок страницы */
+.page-title {
+    text-align: center;
+    color: rgb(19, 13, 124);
+    font-size: 36px;
+    
+    transform: translateY(-2px);
+    position: relative;
+   
+    font-weight: 700;
+    transition: transform 0.3s ease !important;
+    transform: skewX(-15deg);
+}
+
+
+
+/* ОБЕРТКИ ДЛЯ ФИЛЬТРОВ И ПОИСКА */
+.filters-wrapper {
+    max-width: 1200px;
+    margin: 0 auto 30px;
+}
+
+.search-wrapper {
+    max-width: 1200px;
+    margin: 0 ;
+    display: flex;
+    justify-content: center;
+}
+
+/* АДАПТИВНОСТЬ */
+@media (max-width: 1500px) {
+    .services-grid-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 карточки */
+        gap: 20px;
+        max-width: 1200px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .services-page-wrapper {
+        max-width: 1000px;
+        padding: 15px;
+    }
+    
+    .services-grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 карточки */
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 768px) {
+    .services-page-wrapper {
+        padding: 10px;
+    }
+    
+    .services-grid-container {
+        grid-template-columns: 1fr; /* 1 карточка */
+        gap: 15px;
+        max-width: 400px; /* Ограничиваем ширину на мобилках */
+    }
+    
+    .page-title {
+        font-size: 28px;
+        margin: 15px 0 25px;
+    }
+}

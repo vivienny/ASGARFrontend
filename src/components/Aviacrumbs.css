@@ -1,0 +1,59 @@
+/* Aviacrumbs.css */
+.breadcrumbs {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0 0 20px 0; /* Убрал отступ слева */
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Выравнивание по левому краю */
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-item span {
+    color: #6c757d;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+    content: '/';
+    margin: 0 8px;
+    color: #6c757d;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .breadcrumbs {
+        margin-bottom: 15px;
+    }
+    
+    .breadcrumb-item {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumbs {
+        margin-bottom: 12px;
+    }
+    
+    .breadcrumb-item {
+        font-size: 0.8rem;
+    }
+    
+    .breadcrumb-item:not(:last-child)::after {
+        margin: 0 5px;
+    }
+}

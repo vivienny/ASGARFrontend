@@ -1,0 +1,250 @@
+/* AviaServAbout.css - ИСПРАВЛЕННАЯ ВЕРСИЯ */
+
+/* ===== ВИДЕО НА ФОНЕ ===== */
+.vibes-page {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.vibes-background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Затемнение поверх видео */
+.vibes-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* ===== КОНТЕЙНЕР КОНТЕНТА ===== */
+.vibes-content {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    padding: 20px 30px 20px 50px;
+    max-width: 2000px;
+    margin: 0 auto;
+}
+
+/* ===== ХЛЕБНЫЕ КРОШКИ ===== */
+.breadcrumbs {
+    background: rgba(254, 252, 252, 0.688);
+    backdrop-filter: blur(8px);
+    padding: 12px 25px;
+    border-radius: 40px;
+    display: inline-flex;
+    align-items: center;
+    list-style: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 20px;
+}
+
+.breadcrumb-item a {
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+     
+     
+}
+
+.breadcrumb-item span {
+    color: #666;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.breadcrumb-separator {
+    color: #999;
+    margin: 0 10px;
+    font-size: 14px;
+}
+
+/* ===== КАРТОЧКА - ФОТО СЛЕВА, ТЕКСТ СПРАВА ===== */
+.single-avia-card {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 40px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 1550px;
+    margin: 0;
+}
+
+/* Изображение слева */
+.single-avia-image {
+    flex: 0 0 450px !important;
+    height: 350px !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3) !important;
+    margin: 0 !important;
+}
+
+.single-avia-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* ===== ВЕСЬ ТЕКСТ СПРАВА С БОЛЬШИМ ОТСТУПОМ ===== */
+.single-avia-content {
+    flex: 1 !important;
+    padding-left: 420px !important;  /* ← ОСНОВНОЙ ОТСТУП ВПРАВО */
+    display: flex !important;
+    flex-direction: column !important;
+    background: transparent !important;
+    padding-top: 0 !important;  /* Убираем верхний отступ */
+    margin-top: -30px !important; /* Сдвигаем текст вверх (отрицательный отступ) */
+}
+
+/* Заголовок */
+.single-avia-content h2 {
+    font-size: 42px !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    margin-bottom: 5px !important;
+    margin-left: 0 !important;
+    padding-left: 10 !important;
+}
+
+/* Краткое описание */
+.avia-description {
+    font-size: 20px !important;
+    color: white !important;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) !important;
+    margin-bottom: 25px !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* Полное описание */
+.avia-full-description {
+    font-size: 16px !important;
+    color: white !important;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) !important;
+    margin-bottom: 30px !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    line-height: 1.7 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+
+
+
+
+/* Цена */
+.avia-price {
+    margin-bottom: 30px !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    max-width: 400px !important;
+    
+    backdrop-filter: blur(5px) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    
+}
+
+.avia-price h3 {
+    font-size: 18px !important;
+    color: white !important;
+    margin-bottom: 8px !important;
+}
+
+.avia-price-value {
+    font-size: 36px !important;
+    font-weight: 700 !important;
+    color: white !important;
+}
+
+/* Кнопки */
+.avia-actions {
+    display: flex !important;
+    gap: 20px !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+.avia-add-to-cart-btn,
+.avia-back-btn {
+    padding: 15px 30px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.avia-add-to-cart-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.avia-back-btn {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 1200px) {
+    .single-avia-content {
+        padding-left: 40px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .single-avia-card {
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+    
+    .single-avia-image {
+        flex: 0 0 auto !important;
+        max-width: 500px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+    
+    .single-avia-content {
+        padding-left: 20px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .vibes-content {
+        padding: 15px 20px;
+    }
+    
+    .single-avia-content {
+        padding-left: 10px !important;
+    }
+    
+    .single-avia-content h2 {
+        font-size: 32px !important;
+    }
+    
+    .avia-actions {
+        flex-direction: column;
+    }
+}
