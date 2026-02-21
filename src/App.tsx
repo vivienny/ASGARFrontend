@@ -11,15 +11,24 @@ function App() {
 
     // Добавил useEffect для обработки редиректа с 404.html
     useEffect(() => {
-        // Для GitHub Pages: если есть сохранённый путь после 404
-        const redirect = sessionStorage.getItem('redirect')
-        if (redirect && redirect !== window.location.href) {
-            sessionStorage.removeItem('redirect')
-            // Убираем базовый путь /ASGARFrontend из сохранённого URL
-            const path = redirect.replace('/ASGARFrontend', '')
-            navigate(path)
+    // Для GitHub Pages: если есть сохранённый путь после 404
+    const redirect = sessionStorage.getItem('redirect')
+    if (redirect && redirect !== window.location.href) {
+        sessionStorage.removeItem('redirect')
+        
+        // Извлекаем только путь после /ASGARFrontend/
+        let path = redirect.replace('https://vivienny.github.io', '')
+        path = path.replace('/ASGARFrontend', '')
+        
+        // Если путь пустой или содержит двойной слеш
+        if (!path || path.includes('//')) {
+            path = '/'
         }
-    }, [navigate])
+        
+        console.log('🔄 Перенаправление на:', path)
+        navigate(path)
+    }
+}, [navigate])
 
     return (
         <>
