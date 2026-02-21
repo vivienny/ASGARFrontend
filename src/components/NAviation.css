@@ -164,3 +164,119 @@
         gap: 10px;
     }
 }
+
+/* ===== МОБИЛЬНАЯ НАВИГАЦИЯ ===== */
+.mobile-navbar {
+    background: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 10px 15px;
+    height: 70px;
+}
+
+.mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgb(19, 13, 124) !important;
+    text-decoration: none;
+}
+
+.mobile-logo-img {
+    height: 40px;
+    width: 60px;
+    object-fit: contain;
+}
+
+.mobile-company-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgb(19, 13, 124);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: skewX(-15deg);
+    display: inline-block;
+}
+
+.navbar-toggler {
+    border-color: rgba(19, 13, 124, 0.3) !important;
+    padding: 8px 12px !important;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(19, 13, 124, 0.2) !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2819, 13, 124, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+.mobile-nav-link {
+    color: rgb(19, 13, 124) !important;
+    padding: 12px 0 !important;
+    border-bottom: 1px solid rgba(19, 13, 124, 0.1);
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.mobile-nav-link.active {
+    color: #007bff !important;
+    font-weight: 700;
+}
+
+.mobile-nav-link:hover {
+    background: rgba(19, 13, 124, 0.03);
+}
+
+.navbar-collapse {
+    background: white;
+    margin: 10px -15px -10px -15px;
+    padding: 0 15px 15px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Скрываем десктопную навигацию на мобилках */
+@media (max-width: 991px) {
+    .site-header {
+        display: none;
+    }
+}
+
+/* На планшетах тоже показываем мобильную версию */
+@media (min-width: 768px) and (max-width: 991px) {
+    .mobile-navbar {
+        height: 80px;
+    }
+    
+    .mobile-company-name {
+        font-size: 1.8rem;
+    }
+    
+    .mobile-logo-img {
+        height: 50px;
+        width: 75px;
+    }
+}
+
+
+/* ПЕРЕКЛЮЧЕНИЕ ШАПОК */
+@media (max-width: 991px) {
+    .site-header {
+        display: none !important;
+    }
+    
+    .mobile-navbar {
+        display: block !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .mobile-navbar {
+        display: none !important;
+    }
+    
+    .site-header {
+        display: block !important;
+    }
+}

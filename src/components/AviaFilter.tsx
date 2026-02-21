@@ -1,53 +1,56 @@
 import { Form, Button } from 'react-bootstrap'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { setTempFilters, applyFilters, resetFilters } from '../store/AviaFilterSlice'
 import './AviaFilter.css'
 
+// Убираем onFilterChange из интерфейса, оставляем только isLoading
 interface FiltersProps {
-    onFilterChange: (filters: {
-        min_price?: string
-        max_price?: string
-        sort_order?: 'asc'
-    }) => void
     isLoading: boolean
 }
  
-const Filters = ({ onFilterChange, isLoading }: FiltersProps) => {
-    const [minPrice, setMinPrice] = useState('')
-    const [maxPrice, setMaxPrice] = useState('')
-    const [sortOrder, setSortOrder] = useState<'asc' | null>(null)
+const Filters = ({ isLoading }: FiltersProps) => {
+    const dispatch = useAppDispatch()
+    
+    // Берем временные фильтры из Redux
+    const tempFilters = useAppSelector(state => state.filters.tempFilters)
     
     // Временные значения для применения только по кнопке
-    const [tempMinPrice, setTempMinPrice] = useState('')
-    const [tempMaxPrice, setTempMaxPrice] = useState('')
-    const [tempSortOrder, setTempSortOrder] = useState<'asc' | null>(null)
+    const [tempMinPrice, setTempMinPrice] = useState(tempFilters.min_price || '')
+    const [tempMaxPrice, setTempMaxPrice] = useState(tempFilters.max_price || '')
+    const [tempSortOrder, setTempSortOrder] = useState<'asc' | null>(
+        tempFilters.sort_order === 'asc' ? 'asc' : null
+    )
+
+    // Если фильтры в Redux изменились снаружи, обновляем поля
+    useEffect(() => {
+        setTempMinPrice(tempFilters.min_price || '')
+        setTempMaxPrice(tempFilters.max_price || '')
+        setTempSortOrder(tempFilters.sort_order === 'asc' ? 'asc' : null)
+    }, [tempFilters])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         
-        const filters: any = {}
-        if (tempMinPrice) filters.min_price = tempMinPrice
-        if (tempMaxPrice) filters.max_price = tempMaxPrice
-        if (tempSortOrder) filters.sort_order = tempSortOrder
+        // Сохраняем временные фильтры в Redux
+        dispatch(setTempFilters({
+            min_price: tempMinPrice || undefined,
+            max_price: tempMaxPrice || undefined,
+            sort_order: tempSortOrder || undefined
+        }))
         
-        // Синхронизируем временные значения с основными
-        setMinPrice(tempMinPrice)
-        setMaxPrice(tempMaxPrice)
-        setSortOrder(tempSortOrder)
-        
-        console.log('📤 Отправляем фильтры (submit):', filters)
-        onFilterChange(filters)
+        // Применяем фильтры
+        dispatch(applyFilters())
     }
 
     const handleReset = () => {
+        // Очищаем локальные состояния
         setTempMinPrice('')
         setTempMaxPrice('')
         setTempSortOrder(null)
-        setMinPrice('')
-        setMaxPrice('')
-        setSortOrder(null)
         
-        console.log('🔄 Сброс фильтров')
-        onFilterChange({})
+        // Очищаем фильтры в Redux
+        dispatch(resetFilters())
     }
 
     const handleSortAsc = () => {
@@ -55,7 +58,6 @@ const Filters = ({ onFilterChange, isLoading }: FiltersProps) => {
         setTempSortOrder(newSort)
     }
 
-    // Предотвращаем отправку по Enter
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault()
@@ -75,10 +77,7 @@ const Filters = ({ onFilterChange, isLoading }: FiltersProps) => {
                             type="number"
                             placeholder="0 ₽"
                             value={tempMinPrice}
-                            onChange={(e) => {
-                                console.log('💰 Цена от (временная):', e.target.value)
-                                setTempMinPrice(e.target.value)
-                            }}
+                            onChange={(e) => setTempMinPrice(e.target.value)}
                             onKeyDown={handleKeyDown}
                             min="0"
                             className="filters-control"
@@ -90,10 +89,7 @@ const Filters = ({ onFilterChange, isLoading }: FiltersProps) => {
                             type="number"
                             placeholder="100000 ₽"
                             value={tempMaxPrice}
-                            onChange={(e) => {
-                                console.log('💰 Цена до (временная):', e.target.value)
-                                setTempMaxPrice(e.target.value)
-                            }}
+                            onChange={(e) => setTempMaxPrice(e.target.value)}
                             onKeyDown={handleKeyDown}
                             min="0"
                             className="filters-control"

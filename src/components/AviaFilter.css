@@ -404,3 +404,30 @@
         padding: 4px 12px;
     }
 }
+
+/* Дополнительные улучшения для мобилок */
+@media (max-width: 480px) {
+    .filters-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .btn-filter-reset,
+    .btn-filter-apply {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .price-range {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .price-group {
+        max-width: 100%;
+    }
+    
+    .price-group input {
+        max-width: 100%;
+    }
+}

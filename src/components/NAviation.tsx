@@ -1,10 +1,11 @@
-
 import { Link, useLocation } from 'react-router-dom'
-//import { ROUTES } from '../routes.ts' // или из вашего Routes.ts
+import { useState } from 'react' // Добавляем
+import { Navbar, Container, Nav } from 'react-bootstrap' // Добавляем
 import './NAviation.css'
 
 const NavigationBar = () => {
     const location = useLocation()
+    const [expanded, setExpanded] = useState(false) // Для управления бургером
 
     const isActive = (path: string) => {
         if (path === '/') return location.pathname === '/'
@@ -16,11 +17,11 @@ const NavigationBar = () => {
 
     return (
         <>
-            {/* Десктопная версия - ТОЧНАЯ КОПИЯ из старого проекта */}
+            {/* Десктопная версия */}
             <header className="site-header d-none d-lg-block">
                 <div className="header-container">
                     <div className="logo">
-                        <Link to="/">
+                        <Link to="/" onClick={() => setExpanded(false)}>
                             <img 
                                 src="/public/logo.png" 
                                 alt="ASGAR logo" 
@@ -40,17 +41,21 @@ const NavigationBar = () => {
                         <Link to="/services" className={isActive('/services') ? 'active' : ''}>
                             Услуги
                         </Link>
-                        
                     </nav>
                 </div>
             </header>
 
-            {/* Мобильная версия - React Bootstrap с нашими стилями 
-            <Navbar expand="lg" className="d-lg-none mobile-navbar">
+            {/* Мобильная версия - РАСКОММЕНТИРОВАНО */}
+            <Navbar 
+                expand="lg" 
+                className="d-lg-none mobile-navbar"
+                expanded={expanded}
+                onToggle={() => setExpanded(!expanded)}
+            >
                 <Container>
-                    <Navbar.Brand as={Link} to="/" className="mobile-brand">
+                    <Navbar.Brand as={Link} to="/" className="mobile-brand" onClick={() => setExpanded(false)}>
                         <img 
-                            src="/resources/img/logo.png" 
+                            src="/public/logo.png" 
                             alt="ASGAR logo" 
                             className="mobile-logo-img"
                             onError={(e) => {
@@ -67,6 +72,7 @@ const NavigationBar = () => {
                                 to="/" 
                                 active={isActive('/')}
                                 className="mobile-nav-link"
+                                onClick={() => setExpanded(false)}
                             >
                                 Главная
                             </Nav.Link>
@@ -75,14 +81,14 @@ const NavigationBar = () => {
                                 to="/services" 
                                 active={isActive('/services')}
                                 className="mobile-nav-link"
+                                onClick={() => setExpanded(false)}
                             >
                                 Услуги
                             </Nav.Link>
-                            
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
-            </Navbar>*/}
+            </Navbar>
         </>
     )
 }

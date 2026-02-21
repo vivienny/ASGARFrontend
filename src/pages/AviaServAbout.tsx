@@ -15,7 +15,7 @@ const PRODUCT_VIDEO = '/aviafone.mp4'
 const ServiceDetailPage = () => {
     const videoRef = useRef<HTMLVideoElement>(null)
     const { id } = useParams<{ id: string }>()
-    const navigate = useNavigate()
+  
     const [service, setService] = useState<ASGARService | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)

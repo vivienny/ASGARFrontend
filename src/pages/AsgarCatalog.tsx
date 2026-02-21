@@ -4,7 +4,8 @@ import InputField from '../components/inputServ'
 import ServiceCard from '../components/ServAviaCard'
 import Breadcrumbs from '../components/Aviacrumbs'
 import AviaFilter from '../components/AviaFilter'
-
+import { useAppSelector, useAppDispatch } from '../store/hooks'
+import { setTempFilters } from '../store/AviaFilterSlice' // добавим позже действие для поиска
 
 // TYPE-ONLY импорты для типов
 import type { ASGARService, ServicesResponse } from '../modules/asgarApi'
@@ -25,13 +26,19 @@ interface FilterType {
 }
 
 const ServicesPage = () => {
-    const [filters, setFilters] = useState<FilterType>({})
+    const dispatch = useAppDispatch()
+    
+    // Берем ПРИМЕНЕННЫЕ фильтры из Redux
+    const appliedFilters = useAppSelector(state => state.filters.appliedFilters)
+    const tempFilters = useAppSelector(state => state.filters.tempFilters)
+    const reduxLoading = useAppSelector(state => state.filters.loading)
+    
     const [loading, setLoading] = useState(false)
     const [services, setServices] = useState<ASGARService[]>([])
     const [error, setError] = useState<string | null>(null)
     const [useMock, setUseMock] = useState(false)
 
-    // Функция для фильтрации mock данных (как в методичке 7.1)
+    // Функция для фильтрации mock данных
     const filterMockServices = (filters: FilterType = {}): ASGARService[] => {
         let filtered = MOCK_SERVICES.filter(service => !service.IsDelete)
         
@@ -67,10 +74,10 @@ const ServicesPage = () => {
         return filtered
     }
 
-    // Загрузка услуг
+    // Загрузка услуг при изменении appliedFilters
     useEffect(() => {
-        loadServices(filters)
-    }, [])
+        loadServices(appliedFilters)
+    }, [appliedFilters]) // <-- загружаем когда appliedFilters меняются
 
     const loadServices = async (filterParams: FilterType = {}) => {
         setLoading(true)
@@ -80,27 +87,22 @@ const ServicesPage = () => {
             const result: ServicesResponse = await fetchServices(filterParams)
             setServices(result.services)
             setUseMock(false)
-            //console.log('✅ Данные получены с API, фильтры:', filterParams)
         } catch (err) {
-           // console.log('⚠️ API недоступен, используем mock данные')
             const filteredMock = filterMockServices(filterParams)
             setServices(filteredMock)
             setUseMock(true)
-            //setError('Сервер временно недоступен. Показаны тестовые данные.')
         } finally {
             setLoading(false)
         }
     }
 
-    const handleFilterChange = (newFilters: FilterType) => {
-        setFilters(newFilters)
-        loadServices(newFilters)
-    }
-
-    const handleSearch = async (searchValue: string) => {
-        const newFilters = { ...filters, search: searchValue }
-        setFilters(newFilters)
-        loadServices(newFilters)
+    // Обработчик поиска - сохраняем во временные фильтры
+    const handleSearch = (searchValue: string) => {
+        dispatch(setTempFilters({
+            ...tempFilters,
+            search: searchValue || undefined
+        }))
+        // Здесь НЕ применяем фильтры - пользователь должен нажать "Применить"
     }
 
     return (
@@ -116,17 +118,15 @@ const ServicesPage = () => {
             )}
             
             <div className="filters-wrapper">
-                <AviaFilter 
-                    onFilterChange={handleFilterChange}
-                    isLoading={loading}
-                />
+                {/* AviaFilter теперь не принимает onFilterChange, только isLoading */}
+                <AviaFilter isLoading={loading || reduxLoading} />
             </div>
             
             <div className="search-wrapper mb-4">
                 <InputField
-                    value={filters.search || ''}
-                    setValue={(value) => handleSearch(value)}
-                    onSubmit={() => loadServices(filters)}
+                    value={tempFilters.search || ''}  // берем из tempFilters
+                    setValue={handleSearch}
+                    onSubmit={() => {}}  // пусто, так как применяется по кнопке в фильтре
                     loading={loading}
                     placeholder="Поиск"
                     buttonTitle="Найти"
@@ -142,7 +142,7 @@ const ServicesPage = () => {
                 </div>
             ) : services.length === 0 ? (
                 <div className="no-results">
-                    <h2>К сожалению, ничего не найдено </h2>
+                    <h2>К сожалению, ничего не найдено</h2>
                     <p>Попробуйте изменить параметры фильтрации</p>
                 </div>
             ) : (
@@ -152,11 +152,6 @@ const ServicesPage = () => {
                             <ServiceCard key={service.ID} {...service} />
                         ))}
                     </div>
-                    
-                    {/*<p className="results-count">
-                        Найдено услуг: {services.length}
-                        {useMock && ' (тестовые данные)'}
-                    </p> */}
                 </>
             )}
         </div>

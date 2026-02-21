@@ -11,7 +11,7 @@
 .services-grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряду */
-    gap: 25px;
+    gap: 60px;
     margin: 0 auto;
     max-width: 1400px;
     padding: 10px 0;
