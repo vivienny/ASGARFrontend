@@ -17,8 +17,8 @@ export interface ServicesResponse {
 
 // Базовый URL API в зависимости от окружения
 const API_BASE = import.meta.env.PROD 
-    ? 'http://192.168.56.1:8080'  // ← БЭКЕНД на 8080 (БЕЗ /api!)
-    : '/api'  // в разработке через прокси (ТОЛЬКО /api)
+    ? 'http://192.168.1.7:8080'  // ← ИСПРАВЛЕННЫЙ IP!
+    : '/api'  // в разработке через прокси
 
 // API функции с поддержкой фильтров
 export const fetchServices = async (filters: {
@@ -42,10 +42,9 @@ export const fetchServices = async (filters: {
         
         const queryString = params.toString()
         
-        // ВАЖНО: В продакшене НЕ добавляем /api, только /services
-        // В разработке через прокси используем /api/services
+        // ВАЖНО: В продакшене ДОБАВЛЯЕМ /api (как требует бэкенд)
         const url = import.meta.env.PROD
-            ? `${API_BASE}/services${queryString ? `?${queryString}` : ''}`  // ← УБРАЛ /api
+            ? `${API_BASE}/api/services${queryString ? `?${queryString}` : ''}`  // ← ВЕРНУЛ /api
             : `/api/services${queryString ? `?${queryString}` : ''}`  // ← через прокси
         
         console.log('🔍 Запрос к API с фильтрами:', url)
@@ -121,10 +120,9 @@ export const fetchServices = async (filters: {
 
 export const fetchServiceById = async (id: number): Promise<ASGARService> => {
     try {
-        // ВАЖНО: В продакшене НЕ добавляем /api, только /services/id
-        // В разработке через прокси используем /api/services/id
+        // ВАЖНО: В продакшене ДОБАВЛЯЕМ /api (как требует бэкенд)
         const url = import.meta.env.PROD
-            ? `${API_BASE}/services/${id}`  // ← УБРАЛ /api
+            ? `${API_BASE}/api/services/${id}`  // ← ВЕРНУЛ /api
             : `/api/services/${id}`  // ← через прокси
         
         console.log('🔍 Запрос к API:', url)
