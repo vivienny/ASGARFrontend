@@ -2,17 +2,17 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
-// Жёстко задаём base для продакшена
 const isProd = process.env.NODE_ENV === 'production'
+const base = isProd ? '/ASGARFrontend/' : '/'
 
 export default defineConfig({
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      devOptions: {
-        enabled: true, // чтобы работало в dev-режиме
-      },
+      strategies: 'generateSW',
+      injectRegister: 'auto',
+      // ВАЖНО: добавляем base к путям в манифесте
       manifest: {
         name: 'ASGAR Avia Services',
         short_name: 'ASGAR Avia',
@@ -20,24 +20,35 @@ export default defineConfig({
         theme_color: '#1976d2',
         background_color: '#ffffff',
         display: 'standalone',
-        scope: '/',
-        start_url: '/',
+        scope: base,
+        start_url: base,
         icons: [
           {
-            src: '/icon-192.png',
+            src: `${base}icon-192.png`,  // ← добавляем base
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any maskable'
           },
           {
-            src: '/icon-512.png',
+            src: `${base}icon-512.png`,  // ← добавляем base
             sizes: '512x512',
             type: 'image/png',
+            purpose: 'any maskable'
           }
         ]
       },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        // ВАЖНО: указываем правильный base для кэширования
+        navigateFallback: `${base}index.html`,
+      },
+      devOptions: {
+        enabled: true,
+        type: 'module',
+      },
     })
   ],
-  base: isProd ? '/ASGARFrontend/' : '/',
+  base: base,
   server: {
     port: 3000,
     proxy: {
