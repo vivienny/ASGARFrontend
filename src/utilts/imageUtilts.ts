@@ -1,49 +1,47 @@
 /**
  * Утилита для обработки изображений услуг
- * Согласно методичке: API возвращает разные форматы для списка и детальной страницы
  */
 
-/**
- * Преобразует путь к изображению в полный URL
- * @param imgPath - путь с бэкенда (может быть полным URL или относительным)
- * @returns Полный URL для изображения
- */
+// Базовый URL бэкенда - для GitHub Pages нужно указывать реальный IP
+const API_BASE = import.meta.env.PROD 
+  ? 'http://192.168.56.1:9000'  // ← СЮДА ТВОЙ РЕАЛЬНЫЙ IP!
+  : 'http://localhost:9000'
+
 export const getServiceImageUrl = (imgPath: string | undefined): string => {
     // Если нет пути - возвращаем дефолтное изображение
     if (!imgPath || imgPath.trim() === '') {
-        return '/default-service.jpg'
+        return import.meta.env.PROD 
+            ? '/ASGARFrontend/default-service.jpg'
+            : '/default-service.jpg'
     }
     
-    // Если уже полный URL (как в каталоге)
+    // Если уже полный URL - оставляем как есть
     if (imgPath.startsWith('http://') || imgPath.startsWith('https://')) {
         return imgPath
     }
     
-    // Если путь начинается с /test/ (как в детальной странице по методичке)
-    if (imgPath.startsWith('/test/')) {
-        return `http://localhost:9000${imgPath}`
+    // Если путь начинается с /test/ или /uploads/ - это на бэкенд
+    if (imgPath.startsWith('/test/') || imgPath.startsWith('/uploads/')) {
+        return `${API_BASE}${imgPath}`
     }
     
     // Если это просто имя файла
     if (imgPath.includes('.jpg') || imgPath.includes('.png') || imgPath.includes('.jpeg')) {
-        return `http://localhost:9000/test/${imgPath}`
+        return `${API_BASE}/test/${imgPath}`
     }
     
-    // Если путь начинается с /uploads/
-    if (imgPath.startsWith('/uploads/')) {
-        return `http://localhost:9000${imgPath}`
+    // Локальные картинки (в продакшене с префиксом)
+    if (import.meta.env.PROD) {
+        return `/ASGARFrontend${imgPath}`
     }
     
-    // Для других случаев возвращаем как есть
     return imgPath
 }
 
-/**
- * Обработчик ошибок загрузки изображения
- * @param event - событие ошибки
- */
 export const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
     console.warn('⚠️ Не удалось загрузить изображение:', event.currentTarget.src)
-    event.currentTarget.src = '/default-service.jpg'
-    event.currentTarget.onerror = null // Предотвращаем бесконечный цикл
+    event.currentTarget.src = import.meta.env.PROD 
+        ? '/ASGARFrontend/default-service.jpg'
+        : '/default-service.jpg'
+    event.currentTarget.onerror = null
 }
