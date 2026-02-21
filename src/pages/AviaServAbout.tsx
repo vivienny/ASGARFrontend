@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Alert, Spinner } from 'react-bootstrap'
 import Breadcrumbs from '../components/Aviacrumbs'
 import VibesContainer from '../components/VibesContainer'
@@ -15,7 +15,7 @@ const PRODUCT_VIDEO = '/aviafone.mp4'
 const ServiceDetailPage = () => {
     const videoRef = useRef<HTMLVideoElement>(null)
     const { id } = useParams<{ id: string }>()
-  
+   
     const [service, setService] = useState<ASGARService | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)

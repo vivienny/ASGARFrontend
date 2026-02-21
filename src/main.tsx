@@ -11,7 +11,7 @@ import './index.css'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>              {/* Оборачиваем */}
-      <BrowserRouter>
+      <BrowserRouter basename="/ASGARFrontend">  {/* Добавь эту строку */}
         <App />
       </BrowserRouter>
     </Provider>
