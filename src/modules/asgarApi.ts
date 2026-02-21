@@ -15,8 +15,10 @@ export interface ServicesResponse {
     count: number
 }
 
-// Настройки API
-const API_BASE = '/api'
+// Базовый URL API в зависимости от окружения
+const API_BASE = import.meta.env.PROD 
+    ? 'http://192.168.56.1:8080'  // ← твой реальный IP с бэкендом (порт 8080)
+    : '/api'  // в разработке через прокси
 
 // API функции с поддержкой фильтров
 export const fetchServices = async (filters: {
@@ -25,7 +27,7 @@ export const fetchServices = async (filters: {
     max_price?: string
     start_date?: string
     end_date?: string
-    sort_order?: 'asc' | 'desc'  // ← ДОБАВЛЕНО
+    sort_order?: 'asc' | 'desc'
 } = {}): Promise<ServicesResponse> => {
     try {
         // Собираем query параметры
@@ -36,10 +38,13 @@ export const fetchServices = async (filters: {
         if (filters.max_price) params.append('max_price', filters.max_price)
         if (filters.start_date) params.append('start_date', filters.start_date)
         if (filters.end_date) params.append('end_date', filters.end_date)
-        if (filters.sort_order) params.append('sort_order', filters.sort_order) // ← ДОБАВЛЕНО
+        if (filters.sort_order) params.append('sort_order', filters.sort_order)
         
         const queryString = params.toString()
-        const url = `${API_BASE}/services${queryString ? `?${queryString}` : ''}`
+        // Формируем правильный URL в зависимости от окружения
+        const url = import.meta.env.PROD
+            ? `${API_BASE}/api/services${queryString ? `?${queryString}` : ''}`
+            : `${API_BASE}/services${queryString ? `?${queryString}` : ''}`
         
         console.log('🔍 Запрос к API с фильтрами:', url)
         
@@ -114,7 +119,14 @@ export const fetchServices = async (filters: {
 
 export const fetchServiceById = async (id: number): Promise<ASGARService> => {
     try {
-        const response = await fetch(`${API_BASE}/services/${id}`)
+        // Формируем правильный URL в зависимости от окружения
+        const url = import.meta.env.PROD
+            ? `${API_BASE}/api/services/${id}`
+            : `${API_BASE}/services/${id}`
+        
+        console.log('🔍 Запрос к API:', url)
+        
+        const response = await fetch(url)
         
         if (!response.ok) {
             throw new Error(`Ошибка API: ${response.status}`)
