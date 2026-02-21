@@ -75,6 +75,24 @@
     font-size: 14px;
 }
 
+/* ===== ВИДЕО КОНТЕЙНЕР ===== */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-container video,
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 28px;
+}
+
 /* ===== НАДПИСЬ НА ВИДЕО ===== */
 .video-overlay {
     position: absolute;
@@ -147,7 +165,7 @@
     text-align: center;
     margin-top: 8px;
     margin-left: auto;
-    margin-right: 115px;
+    margin-right: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -271,6 +289,86 @@
     
     .video-expanded-description {
         max-width: 100%;
+        width: 100%;
         padding: 12px 14px;
+        min-width: auto;
+    }
+    
+    .video-detail-button {
+        margin-right: auto;
+        max-width: none;
+        min-width: auto;
+        padding: 8px 16px;
+    }
+    
+    .video-overlay {
+        padding: 40px 15px 20px 15px;
+    }
+    
+    .video-price-row {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .vibes-content {
+        padding: 10px 15px;
+    }
+    
+    .video-brand {
+        font-size: 20px;
+    }
+    
+    .video-short-description {
+        font-size: 14px;
+    }
+    
+    .video-price {
+        font-size: 18px;
+    }
+    
+    .video-views {
+        font-size: 13px;
+    }
+    
+    .video-expanded-description {
+        font-size: 13px;
+        max-height: 150px;
+    }
+    
+    .video-detail-button {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+    
+    .breadcrumbs {
+        padding: 8px 16px;
+    }
+    
+    .breadcrumb-item a,
+    .breadcrumb-item span {
+        font-size: 13px;
+    }
+    
+    .breadcrumb-separator {
+        margin: 0 6px;
+    }
+}
+
+/* ===== ИСПРАВЛЕНИЕ ДЛЯ ВИДЕО НА МОБИЛЬНЫХ ===== */
+@media (max-width: 768px) and (hover: none) and (pointer: coarse) {
+    .video-container video,
+    .video-container iframe {
+        /* Принудительно включаем видео на мобильных */
+        pointer-events: auto;
+    }
+    
+    /* Убираем возможные блокировки воспроизведения */
+    .video-container video::-webkit-media-controls {
+        display: flex !important;
+    }
+    
+    .video-container video::-webkit-media-controls-enclosure {
+        display: flex !important;
     }
 }
