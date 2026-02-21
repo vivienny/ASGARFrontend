@@ -2,9 +2,9 @@
  * Утилита для обработки изображений услуг
  */
 
-// Базовый URL бэкенда - для GitHub Pages нужно указывать реальный IP
-const API_BASE = import.meta.env.PROD 
-  ? 'http://192.168.56.1:9000'  // ← СЮДА ТВОЙ РЕАЛЬНЫЙ IP!
+// Базовый URL Minio для картинок (порт 9000)
+const MINIO_BASE = import.meta.env.PROD 
+  ? 'http://192.168.56.1:9000'  // ← твой реальный IP
   : 'http://localhost:9000'
 
 export const getServiceImageUrl = (imgPath: string | undefined): string => {
@@ -20,14 +20,14 @@ export const getServiceImageUrl = (imgPath: string | undefined): string => {
         return imgPath
     }
     
-    // Если путь начинается с /test/ или /uploads/ - это на бэкенд
+    // Если путь начинается с /test/ или /uploads/ - это на Minio
     if (imgPath.startsWith('/test/') || imgPath.startsWith('/uploads/')) {
-        return `${API_BASE}${imgPath}`
+        return `${MINIO_BASE}${imgPath}`
     }
     
     // Если это просто имя файла
     if (imgPath.includes('.jpg') || imgPath.includes('.png') || imgPath.includes('.jpeg')) {
-        return `${API_BASE}/test/${imgPath}`
+        return `${MINIO_BASE}/test/${imgPath}`
     }
     
     // Локальные картинки (в продакшене с префиксом)

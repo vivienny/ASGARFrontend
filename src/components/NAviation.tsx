@@ -1,11 +1,11 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useState } from 'react' // Добавляем
-import { Navbar, Container, Nav } from 'react-bootstrap' // Добавляем
+import { useState } from 'react'
+import { Navbar, Container, Nav } from 'react-bootstrap'
 import './NAviation.css'
 
 const NavigationBar = () => {
     const location = useLocation()
-    const [expanded, setExpanded] = useState(false) // Для управления бургером
+    const [expanded, setExpanded] = useState(false)
 
     const isActive = (path: string) => {
         if (path === '/') return location.pathname === '/'
@@ -13,6 +13,11 @@ const NavigationBar = () => {
             return location.pathname === '/services' || location.pathname.startsWith('/services/')
         }
         return location.pathname === path
+    }
+
+    // Вспомогательная функция для путей к картинкам
+    const getImagePath = (path: string) => {
+        return import.meta.env.PROD ? `/ASGARFrontend${path}` : path
     }
 
     return (
@@ -23,11 +28,11 @@ const NavigationBar = () => {
                     <div className="logo">
                         <Link to="/" onClick={() => setExpanded(false)}>
                             <img 
-                                src="/public/logo.png" 
+                                src={getImagePath('/logo.png')} 
                                 alt="ASGAR logo" 
                                 className="logo-img"
                                 onError={(e) => {
-                                    e.currentTarget.src = '/default-logo.png'
+                                    e.currentTarget.src = getImagePath('/default-service.jpg')
                                 }}
                             />
                             <span className="company-name">АСГАР</span>
@@ -45,7 +50,7 @@ const NavigationBar = () => {
                 </div>
             </header>
 
-            {/* Мобильная версия - РАСКОММЕНТИРОВАНО */}
+            {/* Мобильная версия */}
             <Navbar 
                 expand="lg" 
                 className="d-lg-none mobile-navbar"
@@ -55,11 +60,11 @@ const NavigationBar = () => {
                 <Container>
                     <Navbar.Brand as={Link} to="/" className="mobile-brand" onClick={() => setExpanded(false)}>
                         <img 
-                            src="/public/logo.png" 
+                            src={getImagePath('/logo.png')} 
                             alt="ASGAR logo" 
                             className="mobile-logo-img"
                             onError={(e) => {
-                                e.currentTarget.src = '/default-logo.png'
+                                e.currentTarget.src = getImagePath('/default-service.jpg')
                             }}
                         />
                         <span className="mobile-company-name">АСГАР</span>

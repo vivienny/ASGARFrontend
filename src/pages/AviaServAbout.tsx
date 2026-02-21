@@ -10,7 +10,10 @@ import { MOCK_SERVICES } from '../modules/mock'
 
 import './AviaServAbout.css'
 
-const PRODUCT_VIDEO = '/aviafone.mp4'
+// Функция для правильного пути к видео
+const getVideoPath = () => {
+    return import.meta.env.PROD ? '/ASGARFrontend/aviafone.mp4' : '/aviafone.mp4'
+}
 
 const ServiceDetailPage = () => {
     const videoRef = useRef<HTMLVideoElement>(null)
@@ -70,7 +73,7 @@ const ServiceDetailPage = () => {
             
             <VibesContainer 
                 videoRef={videoRef}
-                videoSrc={PRODUCT_VIDEO}
+                videoSrc={getVideoPath()}
                 service={service}
                 showFullDescription={showFullDescription}
                 onToggleDescription={toggleDescription}
@@ -82,6 +85,7 @@ const ServiceDetailPage = () => {
         </div>
     )
 
+    // ... остальной код без изменений
     if (loading) {
         return (
             <PageWrapper>
