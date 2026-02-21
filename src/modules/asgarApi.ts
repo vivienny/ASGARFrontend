@@ -17,8 +17,8 @@ export interface ServicesResponse {
 
 // Базовый URL API в зависимости от окружения
 const API_BASE = import.meta.env.PROD 
-    ? 'http://192.168.56.1:8080'  // ← твой реальный IP с бэкендом (порт 8080)
-    : '/api'  // в разработке через прокси
+    ? 'http://192.168.56.1:8080'  // ← БЭКЕНД на 8080 (БЕЗ /api!)
+    : '/api'  // в разработке через прокси (ТОЛЬКО /api)
 
 // API функции с поддержкой фильтров
 export const fetchServices = async (filters: {
@@ -41,10 +41,12 @@ export const fetchServices = async (filters: {
         if (filters.sort_order) params.append('sort_order', filters.sort_order)
         
         const queryString = params.toString()
-        // Формируем правильный URL в зависимости от окружения
+        
+        // ВАЖНО: В продакшене НЕ добавляем /api, только /services
+        // В разработке через прокси используем /api/services
         const url = import.meta.env.PROD
-            ? `${API_BASE}/api/services${queryString ? `?${queryString}` : ''}`
-            : `${API_BASE}/services${queryString ? `?${queryString}` : ''}`
+            ? `${API_BASE}/services${queryString ? `?${queryString}` : ''}`  // ← УБРАЛ /api
+            : `/api/services${queryString ? `?${queryString}` : ''}`  // ← через прокси
         
         console.log('🔍 Запрос к API с фильтрами:', url)
         
@@ -119,10 +121,11 @@ export const fetchServices = async (filters: {
 
 export const fetchServiceById = async (id: number): Promise<ASGARService> => {
     try {
-        // Формируем правильный URL в зависимости от окружения
+        // ВАЖНО: В продакшене НЕ добавляем /api, только /services/id
+        // В разработке через прокси используем /api/services/id
         const url = import.meta.env.PROD
-            ? `${API_BASE}/api/services/${id}`
-            : `${API_BASE}/services/${id}`
+            ? `${API_BASE}/services/${id}`  // ← УБРАЛ /api
+            : `/api/services/${id}`  // ← через прокси
         
         console.log('🔍 Запрос к API:', url)
         
@@ -133,7 +136,7 @@ export const fetchServiceById = async (id: number): Promise<ASGARService> => {
         }
         
         const data = await response.json()
-        console.log('📦 Ответ от /api/services/' + id + ':', data)
+        console.log('📦 Ответ от API:', data)
         
         // ФИКС: Извлекаем объект service из ответа
         const service = data.service || data
@@ -141,9 +144,6 @@ export const fetchServiceById = async (id: number): Promise<ASGARService> => {
         if (!service) {
             throw new Error('Сервис не найден в ответе')
         }
-        
-        console.log('🔄 Извлекаем service:', service)
-        console.log('🖼️ Поле Img после извлечения:', service.Img)
         
         return service
     } catch (error) {
