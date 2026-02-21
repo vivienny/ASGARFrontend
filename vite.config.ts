@@ -22,20 +22,18 @@ export default defineConfig({
         display: 'standalone',
         scope: base,
         start_url: base,
-        icons: [
-          {
-            src: `${base}icon-192.png`,  // ← добавляем base
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any maskable'
-          },
-          {
-            src: `${base}icon-512.png`,  // ← добавляем base
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
-          }
-        ]
+          icons: [
+    {
+      src: '/ASGARFrontend/icon-192.png',  // ← явно указываем полный путь
+      sizes: '192x192',
+      type: 'image/png',
+    },
+    {
+      src: '/ASGARFrontend/icon-512.png',  // ← и здесь
+      sizes: '512x512',
+      type: 'image/png',
+    }
+  ]
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],

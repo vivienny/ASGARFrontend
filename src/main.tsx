@@ -7,10 +7,11 @@ import App from './App.tsx'
 import './index.css'
 
 // Регистрация Service Worker для PWA
+// Регистрация Service Worker с правильным путём
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const base = '/ASGARFrontend/'
-    navigator.serviceWorker.register(`${base}sw.js`).then(
+    const swUrl = '/ASGARFrontend/sw.js'  // ← правильный путь!
+    navigator.serviceWorker.register(swUrl).then(
       (registration) => {
         console.log('✅ Service Worker registered:', registration.scope)
       },
@@ -20,7 +21,6 @@ if ('serviceWorker' in navigator) {
     )
   })
 }
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
