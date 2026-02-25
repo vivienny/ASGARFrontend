@@ -1,33 +1,38 @@
 .home-page {
     overflow-x: hidden;
+    width: 100%;
 }
 
 /* Hero секция */
 .hero-section {
     background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
     min-height: calc(100vh - 60px);
+    display: flex;
     align-items: flex-start;
     justify-content: center;
-}
-
-/* Hero контент */
-.hero-content {
-    margin: 0;
-    padding: 20px 20px 0;
-    text-align: center; /* Текст по центру */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Центрируем по горизонтали */
     width: 100%;
 }
 
-/* Хлебные крошки - ТОЛЬКО ИХ СДВИГАЕМ ВЛЕВО */
+/* Hero контент - ПО ЦЕНТРУ */
+.hero-content {
+    margin: 0 auto;
+    padding: 20px 20px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px; /* Ограничиваем максимальную ширину */
+}
+
+/* Хлебные крошки - ВЛЕВО */
 .hero-content .breadcrumb,
 .hero-content nav[aria-label="breadcrumb"],
 .hero-content .aviabreadcrumbs {
     text-align: left !important;
     justify-content: flex-start !important;
-    align-self: flex-start !important; /* Прижимаем к левому краю */
+    align-self: flex-start !important;
     width: 100%;
     margin-left: 0 !important;
     padding-left: 0 !important;
@@ -69,7 +74,7 @@
 .hero-title {
     margin-bottom: 30px;
     width: 100%;
-    text-align: center; /* По центру */
+    text-align: center;
 }
 
 .hero-title-main {
@@ -81,7 +86,7 @@
     letter-spacing: 2px;
     transform: skewX(-10deg);
     margin-bottom: 15px;
-    text-align: center; /* По центру */
+    text-align: center;
 }
 
 .hero-title-sub {
@@ -89,7 +94,7 @@
     font-size: 1.5rem;
     font-weight: 400;
     color: #666;
-    text-align: center; /* По центру */
+    text-align: center;
 }
 
 .hero-description {
@@ -100,15 +105,16 @@
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-    text-align: center; /* По центру */
+    text-align: center;
 }
 
 .hero-buttons {
     display: flex;
     gap: 20px;
-    justify-content: center; /* Кнопки по центру */
+    justify-content: center;
     align-items: center;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .hero-btn-primary {
@@ -141,6 +147,8 @@
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     animation: float 6s ease-in-out infinite;
+    max-width: 100%;
+    height: auto;
 }
 
 @keyframes float {
@@ -152,6 +160,7 @@
 .features-section {
     padding: 80px 0;
     background: white;
+    width: 100%;
 }
 
 .section-title {
@@ -212,6 +221,7 @@
     padding: 100px 0;
     background: linear-gradient(135deg, rgb(19, 13, 124) 0%, rgb(30, 20, 150) 100%);
     color: white;
+    width: 100%;
 }
 
 .cta-section h2 {
@@ -219,12 +229,14 @@
     font-weight: 700;
     margin-bottom: 20px;
     transform: skewX(-10deg);
+    text-align: center;
 }
 
 .cta-text {
     font-size: 1.2rem;
     margin-bottom: 40px;
     opacity: 0.9;
+    text-align: center;
 }
 
 .cta-button {
@@ -235,6 +247,8 @@
     font-size: 1.2rem !important;
     font-weight: 600 !important;
     transition: all 0.3s ease !important;
+    display: inline-block;
+    margin: 0 auto;
 }
 
 .cta-button:hover {
@@ -244,30 +258,13 @@
 }
 
 /* Адаптивность */
-@media (max-width: 300px) {
-    .hero-section {
-        padding: 10px 0 6px;
-        text-align: center;
-    }
-    
-    .hero-content {
-        padding: 30px 20px 0;
-    }
-    
+@media (max-width: 992px) {
     .hero-title-main {
-        font-size: 2.8rem;
+        font-size: 3rem;
     }
     
     .hero-title-sub {
-        font-size: 1.2rem;
-    }
-    
-    .hero-buttons {
-        justify-content: center;
-    }
-    
-    .section-title {
-        font-size: 2rem;
+        font-size: 1.3rem;
     }
 }
 
@@ -281,23 +278,36 @@
     }
     
     .hero-title-main {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
+    }
+    
+    .hero-title-sub {
+        font-size: 1.2rem;
+    }
+    
+    .hero-description {
+        font-size: 1.1rem;
     }
     
     .hero-buttons {
         flex-direction: column;
         gap: 15px;
-        align-items: center; /* Кнопки по центру */
+        align-items: center;
     }
     
     .hero-btn-primary,
     .hero-btn-secondary {
         width: 100%;
+        max-width: 300px;
     }
     
     .features-section,
     .cta-section {
         padding: 60px 0;
+    }
+    
+    .section-title {
+        font-size: 2rem;
     }
     
     .cta-section h2 {
@@ -315,7 +325,7 @@
     }
     
     .hero-title-main {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
     
     .hero-title-sub {
@@ -333,4 +343,28 @@
     .feature-card {
         padding: 30px 20px;
     }
+    
+    .cta-section h2 {
+        font-size: 1.6rem;
+    }
+    
+    .cta-text {
+        font-size: 1rem;
+    }
+    
+    .cta-button {
+        padding: 12px 40px !important;
+        font-size: 1rem !important;
+    }
+}
+
+/* Центрирование для всех контейнеров */
+.container, .container-fluid {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    box-sizing: border-box;
 }

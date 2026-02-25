@@ -2,12 +2,13 @@
 .filters-container {
     background: #fff;
     border-radius: 40px;
-    padding: 6px 20px; /* Уменьшил вертикальный padding с 8px до 6px */
+    padding: 6px 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     width: 100%;
     transition: box-shadow 0.2s ease;
     border: 1px solid transparent;
+    box-sizing: border-box;
 }
 
 .filters-container:hover {
@@ -16,11 +17,11 @@
 
 .filters-title {
     color: hwb(225 6% 38%); 
-    font-size: 0.95rem; /* Увеличил */
+    font-size: 0.95rem;
     font-weight: 600;
     margin-bottom: 6px;
     padding-bottom: 4px;
-    border-bottom: 1px solid rgba(0, 123, 255, 0.2); /* Голубая линия */
+    border-bottom: 1px solid rgba(0, 123, 255, 0.2);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -31,7 +32,7 @@
 
 .filters-title::before {
     content: '⚙️';
-    font-size: 0.85rem; /* Увеличил */
+    font-size: 0.85rem;
     opacity: 0.9;
 }
 
@@ -39,28 +40,28 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 20px; /* Увеличил gap */
+    gap: 20px;
 }
 
 /* Цена */
 .price-range {
     display: flex;
-    gap: 100px; /* Значительно увеличил gap между полями */
+    gap: 100px;
     align-items: center;
-    flex: 1 1 280px; /* Увеличил базовую ширину */
+    flex: 1 1 280px;
 }
 
 .price-group {
     flex: 1;
     position: relative;
-    min-width: 90px; /* Увеличил */
-    max-width: 110px; /* Увеличил */
+    min-width: 90px;
+    max-width: 110px;
 }
 
 .price-group label {
     color: #000000;
     font-weight: 600;
-    font-size: 0.75rem; /* Увеличил с 0.6rem */
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.4px;
     margin-bottom: 4px;
@@ -70,20 +71,21 @@
 
 .price-group input {
     width: 100%;
-    border: 1.5px solid #007bff; /* Голубая обводка */
+    border: 1.5px solid #007bff;
     background: #fff;
     border-radius: 30px;
-    padding: 8px 14px; /* Увеличил padding */
-    font-size: 0.9rem; /* Увеличил */
+    padding: 8px 14px;
+    font-size: 0.9rem;
     color: #333;
     outline: none;
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1); /* Голубая тень */
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
     transition: all 0.2s ease;
     max-width: 110px;
+    box-sizing: border-box;
 }
 
 .price-group input:hover {
-    border-color: #0056b3; /* Темнее при наведении */
+    border-color: #0056b3;
     box-shadow: 0 3px 10px rgba(0, 123, 255, 0.15);
 }
 
@@ -93,19 +95,17 @@
     background: #fff;
 }
 
-
-
 /* Сортировка */
 .sort-group {
     display: flex;
     flex-direction: column;
-    min-width: 180px; /* Увеличил */
+    min-width: 180px;
 }
 
 .sort-group label {
     color: #444;
     font-weight: 600;
-    font-size: 0.75rem; /* Увеличил */
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.4px;
     margin-bottom: 4px;
@@ -115,24 +115,24 @@
 
 .sort-buttons {
     display: flex;
-    gap: 8px; /* Увеличил */
+    gap: 8px;
     margin-top: 2px;
 }
 
 .btn-sort {
     background: #fff;
-    border: 1.5px solid #007bff; /* Голубая обводка */
+    border: 1.5px solid #007bff;
     color: #007bff;
     border-radius: 30px;
-    padding: 6px 16px; /* Увеличил */
-    font-size: 0.85rem; /* Увеличил */
+    padding: 6px 16px;
+    font-size: 0.85rem;
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
     transition: all 0.2s ease;
-    height: 36px; /* Увеличил */
+    height: 36px;
     width: 100%;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 123, 255, 0.1);
@@ -156,17 +156,17 @@
 
 /* Селект (если нужен) */
 .filters-select {
-    border: 1.5px solid #007bff; /* Голубая обводка */
+    border: 1.5px solid #007bff;
     background: #fff;
     border-radius: 30px;
     padding: 6px 14px;
-    font-size: 0.9rem; /* Увеличил */
+    font-size: 0.9rem;
     color: #333;
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 123, 255, 0.1);
     transition: all 0.2s ease;
-    height: 36px; /* Увеличил */
-    min-width: 150px; /* Увеличил */
+    height: 36px;
+    min-width: 150px;
     cursor: pointer;
 }
 
@@ -183,7 +183,7 @@
 /* Кнопки действий */
 .filters-actions {
     display: flex;
-    gap: 12px; /* Увеличил */
+    gap: 12px;
     justify-content: flex-end;
     margin-left: auto;
     align-items: center;
@@ -191,14 +191,14 @@
 
 .btn-filter-reset {
     background: #fff;
-    border: 1.5px solid #007bff; /* Голубая обводка */
+    border: 1.5px solid #007bff;
     color: #007bff;
     border-radius: 30px;
-    padding: 6px 22px; /* Увеличил */
+    padding: 6px 22px;
     font-weight: 500;
-    font-size: 0.9rem; /* Увеличил */
+    font-size: 0.9rem;
     line-height: 1.2;
-    height: 36px; /* Увеличил */
+    height: 36px;
     transition: all 0.2s ease;
     white-space: nowrap;
     cursor: pointer;
@@ -217,15 +217,15 @@
 }
 
 .btn-filter-apply {
-    background: #007bff; /* Голубая заливка */
+    background: #007bff;
     border: 1.5px solid #007bff;
     color: white;
     border-radius: 30px;
-    padding: 6px 26px; /* Увеличил */
+    padding: 6px 26px;
     font-weight: 600;
-    font-size: 0.9rem; /* Увеличил */
+    font-size: 0.9rem;
     line-height: 1.2;
-    height: 36px; /* Увеличил */
+    height: 36px;
     transition: all 0.2s ease;
     white-space: nowrap;
     cursor: pointer;
@@ -236,7 +236,7 @@
 }
 
 .btn-filter-apply:hover {
-    background: #0056b3; /* Темнее при наведении */
+    background: #0056b3;
     border-color: #0056b3;
     box-shadow: 0 5px 14px rgba(0, 123, 255, 0.3);
     transform: translateY(-1px);
@@ -276,11 +276,6 @@
         padding: 7px 12px;
     }
     
-    .price-group:first-child::after {
-        right: -20px;
-        bottom: 9px;
-    }
-    
     .filters-actions {
         margin-left: 0;
         width: 100%;
@@ -289,145 +284,68 @@
     }
 }
 
+/* УМЕНЬШАЕМ ВЫСОТУ ФИЛЬТРА НА МОБИЛКАХ */
 @media (max-width: 768px) {
-    .filters-container { 
-        padding: 8px 14px;
-        border-radius: 30px;
+    .filters-container {
+        padding: 8px 12px !important; /* Уменьшил вертикальный padding */
     }
     
     .filters-title {
-        font-size: 0.9rem;
+        font-size: 0.9rem !important;
+        margin-bottom: 6px !important; /* Уменьшил отступ */
+        padding-bottom: 2px !important;
     }
     
-    .filters-row { 
-        flex-direction: column; 
-        align-items: stretch; 
-        gap: 14px; 
+    .filters-row {
+        gap: 8px !important; /* Уменьшил расстояние между элементами */
     }
     
-    .price-range {
-        width: 100%;
-        gap: 20px;
-        justify-content: space-between;
-    }
-    
-    .price-group {
-        max-width: none;
+    .price-group label {
+        font-size: 0.7rem !important;
+        margin-bottom: 2px !important; /* Уменьшил отступ под label */
     }
     
     .price-group input {
-        max-width: none;
-        width: 100%;
+        padding: 4px 8px !important; /* Уменьшил внутренние отступы */
+        height: 32px !important; /* Уменьшил высоту поля */
+        font-size: 0.8rem !important;
     }
     
-    .sort-group { 
-        width: 100%; 
-    }
-    
-    .price-group:first-child::after { 
-        display: none; 
-    }
-    
-    .filters-actions { 
-        flex-direction: row; 
-        justify-content: space-between; 
-        margin-top: 6px;
-    }
-}
-
-@media (max-width: 576px) {
-    .filters-container { 
-        padding: 8px 12px; 
-        border-radius: 25px; 
-    }
-    
-    .filters-title { 
-        font-size: 0.85rem; 
-        margin-bottom: 4px; 
-    }
-    
-    .filters-title::before {
-        font-size: 0.75rem;
-    }
-    
-    .price-group label,
-    .sort-group label {
-        font-size: 0.7rem;
-    }
-    
-    .price-group input {
-        padding: 6px 12px;
-        font-size: 0.85rem;
-        height: 34px;
-    }
-    
-    .price-range {
-        gap: 16px;
-    }
-    
-    .btn-sort { 
-        height: 34px; 
-        padding: 5px 14px; 
-        font-size: 0.8rem; 
-    }
-    
-    .btn-filter-reset, 
-    .btn-filter-apply { 
-        height: 34px; 
-        padding: 5px 18px; 
-        font-size: 0.85rem; 
-    }
-    
-    .filters-select {
-        height: 34px;
-        padding: 5px 12px;
-        font-size: 0.85rem;
-    }
-    
-    .price-range { 
-        flex-direction: column; 
-        gap: 10px; 
-    }
-}
-
-@media (max-width: 360px) {
-    .filters-container {
-        padding: 6px 10px;
-        border-radius: 20px;
-    }
-    
-    .btn-sort, 
-    .btn-filter-reset, 
-    .btn-filter-apply,
-    .filters-select {
-        font-size: 0.75rem;
-        padding: 4px 12px;
-    }
-}
-
-/* Дополнительные улучшения для мобилок */
-@media (max-width: 480px) {
-    .filters-actions {
-        flex-direction: column;
-        gap: 8px;
+    .btn-sort {
+        height: 32px !important; /* Уменьшил высоту кнопок */
+        padding: 4px 8px !important;
+        font-size: 0.75rem !important;
     }
     
     .btn-filter-reset,
     .btn-filter-apply {
-        width: 100%;
-        justify-content: center;
+        height: 34px !important; /* Уменьшил высоту */
+        padding: 4px 10px !important;
+        font-size: 0.8rem !important;
     }
     
-    .price-range {
-        flex-direction: column;
-        gap: 10px;
+    .sort-group label {
+        font-size: 0.7rem !important;
+        margin-bottom: 2px !important;
     }
-    
-    .price-group {
-        max-width: 100%;
+}
+
+@media (max-width: 480px) {
+    .filters-container {
+        padding: 6px 10px !important; /* Ещё меньше */
     }
     
     .price-group input {
-        max-width: 100%;
+        height: 30px !important;
+        padding: 3px 6px !important;
+    }
+    
+    .btn-sort {
+        height: 30px !important;
+    }
+    
+    .btn-filter-reset,
+    .btn-filter-apply {
+        height: 32px !important;
     }
 }

@@ -9,13 +9,24 @@
 
 /* КОНТЕЙНЕР ДЛЯ КАРТОЧЕК - 4 В РЯДУ */
 .services-grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряду */
-    gap: 60px;
-    margin: 0 auto;
-    max-width: 1400px;
-    padding: 10px 0;
-    justify-items: center; /* Центрируем карточки внутри ячеек */
+    
+
+
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 65px !important; /* ОГРОМНЫЙ отступ между карточками */
+    margin: 0 auto !important;
+    max-width: 1400px !important;
+    padding: 30px 20px !important; /* Увеличил отступы по бокам */
+    justify-items: center !important;
+
+}
+
+/* Стили для самих карточек */
+.service-card {
+    width: 100%;
+    max-width: 320px; /* Ограничиваем максимальную ширину */
+    margin: 0 auto; /* Центрируем карточку */
 }
 
 /* Заголовок страницы */
@@ -23,64 +34,216 @@
     text-align: center;
     color: rgb(19, 13, 124);
     font-size: 36px;
-    
-    transform: translateY(-2px);
+    transform: translateY(-2px) skewX(-15deg);
     position: relative;
-   
     font-weight: 700;
     transition: transform 0.3s ease !important;
-    transform: skewX(-15deg);
+    margin: 20px 0 30px; /* Добавил отступы вокруг заголовка */
 }
 
-
+.page-title:hover {
+    transform: translateY(-2px) skewX(-15deg) scale(1.05);
+}
 
 /* ОБЕРТКИ ДЛЯ ФИЛЬТРОВ И ПОИСКА */
 .filters-wrapper {
     max-width: 1200px;
     margin: 0 auto 30px;
+    padding: 0 20px;
 }
 
 .search-wrapper {
     max-width: 1200px;
-    margin: 0 ;
+    margin: 0 auto 30px; /* Добавил отступ снизу */
+    padding: 0 20px;
     display: flex;
     justify-content: center;
 }
 
-/* АДАПТИВНОСТЬ */
+/* Сообщение когда ничего не найдено */
+.no-results {
+    text-align: center;
+    padding: 50px 20px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    margin: 30px auto;
+    max-width: 600px;
+}
+
+.no-results h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.no-results p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* АДАПТИВНОСТЬ ДЛЯ ПЛАНШЕТОВ И НОУТБУКОВ */
 @media (max-width: 1500px) {
     .services-grid-container {
-        grid-template-columns: repeat(3, 1fr); /* 3 карточки */
-        gap: 20px;
+        grid-template-columns: repeat(3, 1fr)!important; /* 3 карточки */
+        gap: 35px;
         max-width: 1200px;
+        padding: 25px 20px;
     }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 800px) {
     .services-page-wrapper {
-        max-width: 1000px;
         padding: 15px;
     }
     
     .services-grid-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 карточки */
+        grid-template-columns: repeat(2, 1fr)!important; /* 2 карточки */
+        gap: 30px;
         max-width: 800px;
+        padding: 20px;
+    }
+    
+    .service-card {
+        max-width: 350px;
     }
 }
 
-@media (max-width: 768px) {
+/* ===== ИСПРАВЛЕНИЯ ДЛЯ МОБИЛЬНЫХ ===== */
+@media (max-width: 500px) {
     .services-page-wrapper {
-        padding: 10px;
+        padding: 10px !important;
+        width: 100% !important;
     }
     
     .services-grid-container {
-        grid-template-columns: 1fr; /* 1 карточка */
-        gap: 15px;
-        max-width: 400px; /* Ограничиваем ширину на мобилках */
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 65px !important; /* Как ты просила */
+        padding: 20px 15px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Сами карточки */
+    .services-grid-container .card,
+    .services-grid-container > *,
+    .service-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        margin-bottom: 0 !important;
+        flex: 0 0 auto !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Изображение в карточке */
+    .services-grid-container .cardImage {
+        height: 180px !important;
+        width: 100% !important;
+        object-fit: cover !important;
+    }
+    
+    /* Тело карточки */
+    .services-grid-container .cardBody {
+        padding: 16px 12px 12px !important;
     }
     
     .page-title {
-        font-size: 28px;
-        margin: 15px 0 25px;
+        font-size: 28px !important;
+        margin: 15px 0 35px !important;
+        padding: 0 10px !important;
+    }
+    
+    .filters-wrapper,
+    .search-wrapper {
+        padding: 0 15px !important;
+        margin-bottom: 30px !important;
+    }
+}
+
+/* Для маленьких экранов */
+@media (max-width: 480px) {
+    .services-grid-container {
+        gap: 65px !important; /* Оставляем 65px */
+        padding: 15px 10px !important;
+    }
+    
+    .services-grid-container .cardImage {
+        height: 160px !important;
+    }
+    
+    .page-title {
+        font-size: 24px !important;
+        margin: 10px 0 30px !important;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 360px) {
+    .services-grid-container {
+        gap: 60px !important;
+        padding: 10px 8px !important;
+    }
+    
+    .services-grid-container .cardImage {
+        height: 140px !important;
+    }
+}
+
+/* ТОЛЬКО ПОРЯДОК ДЛЯ МОБИЛОК */
+@media (max-width: 500px) {
+    .services-page-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .services-page-wrapper > .breadcrumbs-wrapper {
+        order: 1 !important;
+    }
+    
+    .services-page-wrapper > h1.page-title {
+        order: 2 !important;
+    }
+    
+    .services-page-wrapper > .search-wrapper {
+        order: 3 !important;
+    }
+    
+    .services-page-wrapper > .filters-wrapper {
+        order: 4 !important;
+    }
+    
+    .services-page-wrapper > .services-grid-container {
+        order: 5 !important;
+    }
+}
+
+/* ДЛЯ 360 - ТОЛЬКО ПОРЯДОК, НИЧЕГО ПРО КАРТОЧКИ */
+@media (max-width: 360px) {
+    .services-page-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .services-page-wrapper > .breadcrumbs-wrapper {
+        order: 1 !important;
+    }
+    
+    .services-page-wrapper > h1.page-title {
+        order: 2 !important;
+    }
+    
+    .services-page-wrapper > .search-wrapper {
+        order: 3 !important;
+    }
+    
+    .services-page-wrapper > .filters-wrapper {
+        order: 4 !important;
+    }
+    
+    .services-page-wrapper > .services-grid-container {
+        order: 5 !important;
     }
 }

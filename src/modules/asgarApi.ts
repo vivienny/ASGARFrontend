@@ -17,7 +17,7 @@ export interface ServicesResponse {
 
 // Базовый URL API в зависимости от окружения
 const API_BASE = import.meta.env.PROD 
-    ? 'http://192.168.1.7:8080'  // ← ИСПРАВЛЕННЫЙ IP!
+    ? 'http://192.168.1.6:8080'  // ← ИСПРАВЛЕННЫЙ IP!
     : '/api'  // в разработке через прокси
 
 // API функции с поддержкой фильтров

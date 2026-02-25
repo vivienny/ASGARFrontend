@@ -372,3 +372,10 @@
         display: flex !important;
     }
 }
+
+/* Поднимаем шапку над чёрным фоном */
+.navbar, .site-header, .mobile-navbar {
+    position: relative !important;
+    z-index: 2000 !important;
+    background: white !important;
+}

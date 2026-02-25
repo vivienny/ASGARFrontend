@@ -4,7 +4,7 @@
 
 // Базовый URL Minio для картинок (порт 9000)
 const MINIO_BASE = import.meta.env.PROD 
-  ? 'http://192.168.1.7:9000'  // ← ИСПРАВЛЕННЫЙ IP
+  ? 'http://192.168.1.6:9000'  // ← ИСПРАВЛЕННЫЙ IP
   : 'http://localhost:9000'
 
 export const getServiceImageUrl = (imgPath: string | undefined): string => {

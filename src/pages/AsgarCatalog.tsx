@@ -4,8 +4,9 @@ import InputField from '../components/inputServ'
 import ServiceCard from '../components/ServAviaCard'
 import Breadcrumbs from '../components/Aviacrumbs'
 import AviaFilter from '../components/AviaFilter'
+
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { setTempFilters } from '../store/AviaFilterSlice' // добавим позже действие для поиска
+import { setTempFilters, applyFilters, setLoading, setError } from '../store/AviaFilterSlice'
 
 // TYPE-ONLY импорты для типов
 import type { ASGARService, ServicesResponse } from '../modules/asgarApi'
@@ -16,14 +17,8 @@ import { MOCK_SERVICES } from '../modules/mock'
 
 import './AsgarCatalog.css'
 
-// Тип для фильтров
-interface FilterType {
-    search?: string
-    min_price?: string
-    max_price?: string
-    start_date?: string
-    end_date?: string
-}
+// Тип для фильтров (импортируем из слайса)
+import type { FilterType } from '../store/AviaFilterSlice'
 
 const ServicesPage = () => {
     const dispatch = useAppDispatch()
@@ -33,9 +28,9 @@ const ServicesPage = () => {
     const tempFilters = useAppSelector(state => state.filters.tempFilters)
     const reduxLoading = useAppSelector(state => state.filters.loading)
     
-    const [loading, setLoading] = useState(false)
+    const [loading, setLocalLoading] = useState(false)
     const [services, setServices] = useState<ASGARService[]>([])
-    const [error, setError] = useState<string | null>(null)
+    const [error, setLocalError] = useState<string | null>(null)
     const [useMock, setUseMock] = useState(false)
 
     // Функция для фильтрации mock данных
@@ -77,11 +72,13 @@ const ServicesPage = () => {
     // Загрузка услуг при изменении appliedFilters
     useEffect(() => {
         loadServices(appliedFilters)
-    }, [appliedFilters]) // <-- загружаем когда appliedFilters меняются
+    }, [appliedFilters])
 
     const loadServices = async (filterParams: FilterType = {}) => {
-        setLoading(true)
-        setError(null)
+        setLocalLoading(true)
+        dispatch(setLoading(true))
+        setLocalError(null)
+        dispatch(setError(null))
         
         try {
             const result: ServicesResponse = await fetchServices(filterParams)
@@ -92,69 +89,74 @@ const ServicesPage = () => {
             setServices(filteredMock)
             setUseMock(true)
         } finally {
-            setLoading(false)
+            setLocalLoading(false)
+            dispatch(setLoading(false))
         }
     }
 
-    // Обработчик поиска - сохраняем во временные фильтры
-    const handleSearch = (searchValue: string) => {
+    // Обработчик изменения текста поиска
+    const handleSearchChange = (searchValue: string) => {
         dispatch(setTempFilters({
             ...tempFilters,
             search: searchValue || undefined
         }))
-        // Здесь НЕ применяем фильтры - пользователь должен нажать "Применить"
+    }
+
+    // Обработчик нажатия на кнопку "Найти"
+    const handleSearchSubmit = () => {
+        dispatch(applyFilters()) // применяем все временные фильтры
     }
 
     return (
-        <div className="services-page-wrapper">
-            <Breadcrumbs />
+        <>
             
-            <h1 className="page-title">УСЛУГИ</h1>
-            
-            {error && useMock && (
-                <Alert variant="warning" className="mb-3">
-                    ⚠️ {error}
-                </Alert>
-            )}
-            
-            <div className="filters-wrapper">
-                {/* AviaFilter теперь не принимает onFilterChange, только isLoading */}
-                <AviaFilter isLoading={loading || reduxLoading} />
-            </div>
-            
-            <div className="search-wrapper mb-4">
-                <InputField
-                    value={tempFilters.search || ''}  // берем из tempFilters
-                    setValue={handleSearch}
-                    onSubmit={() => {}}  // пусто, так как применяется по кнопке в фильтре
-                    loading={loading}
-                    placeholder="Поиск"
-                    buttonTitle="Найти"
-                />
-            </div>
+            <div className="services-page-wrapper">
+                <Breadcrumbs />
+                
+                <h1 className="page-title">УСЛУГИ</h1>
+                
+                {error && useMock && (
+                    <Alert variant="warning" className="mb-3">
+                        ⚠️ {error}
+                    </Alert>
+                )}
+                
+                <div className="filters-wrapper">
+                    <AviaFilter isLoading={loading || reduxLoading} />
+                </div>
+                
+                <div className="search-wrapper mb-4">
+                    <InputField
+                        value={tempFilters.search || ''}
+                        setValue={handleSearchChange}
+                        onSubmit={handleSearchSubmit}  // ← теперь работает!
+                        loading={loading || reduxLoading}
+                        placeholder="Поиск"
+                        buttonTitle="Найти"
+                    />
+                </div>
 
-            {loading ? (
-                <div className="text-center py-5">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Загрузка...</span>
-                    </Spinner>
-                    <p className="mt-3">Загрузка услуг...</p>
-                </div>
-            ) : services.length === 0 ? (
-                <div className="no-results">
-                    <h2>К сожалению, ничего не найдено</h2>
-                    <p>Попробуйте изменить параметры фильтрации</p>
-                </div>
-            ) : (
-                <>
+                {loading || reduxLoading ? (
+                    <div className="text-center py-5">
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Загрузка...</span>
+                        </Spinner>
+                        <p className="mt-3">Загрузка услуг...</p>
+                    </div>
+                ) : services.length === 0 ? (
+                    <div className="no-results">
+                        <h2>К сожалению, ничего не найдено</h2>
+                        <p>Попробуйте изменить параметры фильтрации</p>
+                    </div>
+                ) : (
                     <div className="services-grid-container">
                         {services.map((service) => (
                             <ServiceCard key={service.ID} {...service} />
                         ))}
                     </div>
-                </>
-            )}
-        </div>
+                )}
+            </div>
+        </>
     )
 }
 

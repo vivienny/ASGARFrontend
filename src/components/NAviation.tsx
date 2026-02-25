@@ -1,11 +1,20 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import './NAviation.css'
 
 const NavigationBar = () => {
     const location = useLocation()
     const [expanded, setExpanded] = useState(false)
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 992)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 992)
+        }
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     const isActive = (path: string) => {
         if (path === '/') return location.pathname === '/'
@@ -15,18 +24,17 @@ const NavigationBar = () => {
         return location.pathname === path
     }
 
-    // Вспомогательная функция для путей к картинкам
     const getImagePath = (path: string) => {
         return import.meta.env.PROD ? `/ASGARFrontend${path}` : path
     }
 
-    return (
-        <>
-            {/* Десктопная версия */}
-            <header className="site-header d-none d-lg-block">
+    // Если не мобилка - показываем десктопную шапку
+    if (!isMobile) {
+        return (
+            <header className="site-header">
                 <div className="header-container">
                     <div className="logo">
-                        <Link to="/" onClick={() => setExpanded(false)}>
+                        <Link to="/">
                             <img 
                                 src={getImagePath('/logo.png')} 
                                 alt="ASGAR logo" 
@@ -38,7 +46,6 @@ const NavigationBar = () => {
                             <span className="company-name">АСГАР</span>
                         </Link>
                     </div>
-
                     <nav className="main-nav">
                         <Link to="/" className={isActive('/') ? 'active' : ''}>
                             Главная
@@ -49,52 +56,62 @@ const NavigationBar = () => {
                     </nav>
                 </div>
             </header>
+        )
+    }
 
-            {/* Мобильная версия */}
-            <Navbar 
-                expand="lg" 
-                className="d-lg-none mobile-navbar"
-                expanded={expanded}
-                onToggle={() => setExpanded(!expanded)}
+    // Мобильная версия
+    return (
+       <Navbar 
+    expand={false}
+    className="mobile-navbar"
+    expanded={expanded}
+>
+    <Container fluid>
+        <Navbar.Brand as={Link} to="/" className="mobile-brand" onClick={() => setExpanded(false)}>
+            <img 
+                src={getImagePath('/logo.png')} 
+                alt="ASGAR logo" 
+                className="mobile-logo-img"
+                onError={(e) => {
+                    e.currentTarget.src = getImagePath('/default-service.jpg')
+                }}
+            />
+            <span className="mobile-company-name">АСГАР</span>
+        </Navbar.Brand>
+        
+        {/* Ручная кнопка бургера */}
+        <button 
+            onClick={() => setExpanded(!expanded)}
+            className="navbar-toggler"
+            type="button"
+        >
+            <span className="navbar-toggler-icon"></span>
+        </button>
+        
+        {expanded && (
+    <div className="mobile-menu-dropdown">
+        <Nav className="flex-column">
+            <Nav.Link 
+                as={Link} 
+                to="/" 
+                className={`mobile-nav-link ${isActive('/') ? 'active' : ''}`}
+                onClick={() => setExpanded(false)}
             >
-                <Container>
-                    <Navbar.Brand as={Link} to="/" className="mobile-brand" onClick={() => setExpanded(false)}>
-                        <img 
-                            src={getImagePath('/logo.png')} 
-                            alt="ASGAR logo" 
-                            className="mobile-logo-img"
-                            onError={(e) => {
-                                e.currentTarget.src = getImagePath('/default-service.jpg')
-                            }}
-                        />
-                        <span className="mobile-company-name">АСГАР</span>
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="mobile-nav" />
-                    <Navbar.Collapse id="mobile-nav">
-                        <Nav className="ms-auto">
-                            <Nav.Link 
-                                as={Link} 
-                                to="/" 
-                                active={isActive('/')}
-                                className="mobile-nav-link"
-                                onClick={() => setExpanded(false)}
-                            >
-                                Главная
-                            </Nav.Link>
-                            <Nav.Link 
-                                as={Link} 
-                                to="/services" 
-                                active={isActive('/services')}
-                                className="mobile-nav-link"
-                                onClick={() => setExpanded(false)}
-                            >
-                                Услуги
-                            </Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </>
+                Главная
+            </Nav.Link>
+            <Nav.Link 
+                as={Link} 
+                to="/services" 
+                className={`mobile-nav-link ${isActive('/services') ? 'active' : ''}`}
+                onClick={() => setExpanded(false)}
+            >
+                Услуги
+            </Nav.Link>
+        </Nav>
+    </div>
+)}
+    </Container>
+</Navbar>
     )
 }
 

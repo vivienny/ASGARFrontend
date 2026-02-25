@@ -4,6 +4,7 @@ import { Alert, Spinner } from 'react-bootstrap'
 import Breadcrumbs from '../components/Aviacrumbs'
 import VibesContainer from '../components/VibesContainer'
 
+
 import type { ASGARService } from '../modules/asgarApi'
 import { fetchServiceById } from '../modules/asgarApi'
 import { MOCK_SERVICES } from '../modules/mock'
@@ -27,8 +28,11 @@ const ServiceDetailPage = () => {
 
     useEffect(() => {
         if (videoRef.current) {
+            videoRef.current.setAttribute('playsInline', '')
+            videoRef.current.setAttribute('webkit-playsinline', 'true')
+            videoRef.current.load()
             videoRef.current.play().catch(e => {
-                console.log('⚠️ Автовоспроизведение видео не удалось:', e)
+                console.log('⚠️ Автовоспроизведение не удалось:', e)
             })
         }
     }, [])
@@ -68,24 +72,26 @@ const ServiceDetailPage = () => {
     }
 
     const PageWrapper = ({ children }: { children: React.ReactNode }) => (
-        <div className="vibes-page">
-            <div className="vibes-black-bg"></div>
+        <>
             
-            <VibesContainer 
-                videoRef={videoRef}
-                videoSrc={getVideoPath()}
-                service={service}
-                showFullDescription={showFullDescription}
-                onToggleDescription={toggleDescription}
-            />
-            
-            <div className="vibes-content">
-                {children}
+            <div className="vibes-page">
+                <div className="vibes-black-bg"></div>
+                
+                <VibesContainer 
+                    videoRef={videoRef}
+                    videoSrc={getVideoPath()}
+                    service={service}
+                    showFullDescription={showFullDescription}
+                    onToggleDescription={toggleDescription}
+                />
+                
+                <div className="vibes-content">
+                    {children}
+                </div>
             </div>
-        </div>
+        </>
     )
 
-    // ... остальной код без изменений
     if (loading) {
         return (
             <PageWrapper>
