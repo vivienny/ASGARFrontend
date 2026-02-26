@@ -58,7 +58,7 @@ export default defineConfig({
     strictPort: true,
     proxy: {
       '/api': {
-        target: 'http://192.168.1.10:8080', // прокси всё ещё HTTP (бэкенд)
+        target: 'http://10.82.26.48:8080', // прокси всё ещё HTTP (бэкенд)
         changeOrigin: true,
       },
     },
