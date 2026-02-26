@@ -1,18 +1,23 @@
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import basicSsl from '@vitejs/plugin-basic-ssl'  // ← добавляем
 
+
+// Определяем режим: продакшен или разработка
 const isProd = process.env.NODE_ENV === 'production'
+// В продакшене - /ASGARFrontend/, в разработке - /
 const base = isProd ? '/ASGARFrontend/' : '/'
 
 export default defineConfig({
   plugins: [
+    basicSsl(),  // ← добавляем ПЕРВЫМ!
     react(),
     VitePWA({
       registerType: 'autoUpdate',
       strategies: 'generateSW',
       injectRegister: 'auto',
-      // ВАЖНО: добавляем base к путям в манифесте
       manifest: {
         name: 'ASGAR Avia Services',
         short_name: 'ASGAR Avia',
@@ -22,22 +27,21 @@ export default defineConfig({
         display: 'standalone',
         scope: base,
         start_url: base,
-          icons: [
-    {
-      src: '/ASGARFrontend/icon-192.png',  // ← явно указываем полный путь
-      sizes: '192x192',
-      type: 'image/png',
-    },
-    {
-      src: '/ASGARFrontend/icon-512.png',  // ← и здесь
-      sizes: '512x512',
-      type: 'image/png',
-    }
-  ]
+        icons: [
+          {
+            src: `${base}icon-192.png`,
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: `${base}icon-512.png`,
+            sizes: '512x512',
+            type: 'image/png',
+          }
+        ]
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
-        // ВАЖНО: указываем правильный base для кэширования
         navigateFallback: `${base}index.html`,
       },
       devOptions: {
@@ -48,10 +52,13 @@ export default defineConfig({
   ],
   base: base,
   server: {
+    https:{},      // ← включаем HTTPS
+    host: true,       // ← слушаем на всех интерфейсах
     port: 3000,
+    strictPort: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://192.168.1.10:8080', // прокси всё ещё HTTP (бэкенд)
         changeOrigin: true,
       },
     },

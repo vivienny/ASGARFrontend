@@ -108,7 +108,7 @@
     }
 }
 
-/* ===== ИСПРАВЛЕНИЯ ДЛЯ МОБИЛЬНЫХ ===== */
+/* ===== ДЛЯ МОБИЛЬНЫХ ===== */
 @media (max-width: 500px) {
     .services-page-wrapper {
         padding: 10px !important;
@@ -166,7 +166,7 @@
 /* Для маленьких экранов */
 @media (max-width: 480px) {
     .services-grid-container {
-        gap: 65px !important; /* Оставляем 65px */
+        gap: 65px !important; 
         padding: 15px 10px !important;
     }
     
@@ -220,7 +220,7 @@
     }
 }
 
-/* ДЛЯ 360 - ТОЛЬКО ПОРЯДОК, НИЧЕГО ПРО КАРТОЧКИ */
+/* ДЛЯ 360 - ТОЛЬКО ПОРЯДОК */
 @media (max-width: 360px) {
     .services-page-wrapper {
         display: flex !important;

@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
-import App from './App.tsx'
+import App from './App'
 import './index.css'
 
-// Регистрация Service Worker для PWA
+// Определяем basename в зависимости от окружения
+const basename = import.meta.env.PROD ? '/ASGARFrontend' : '/'
+
 // Регистрация Service Worker с правильным путём
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const swUrl = '/ASGARFrontend/sw.js'  // ← правильный путь!
+    const swUrl = `${basename}/sw.js`
     navigator.serviceWorker.register(swUrl).then(
       (registration) => {
         console.log('✅ Service Worker registered:', registration.scope)
@@ -21,10 +23,11 @@ if ('serviceWorker' in navigator) {
     )
   })
 }
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename="/ASGARFrontend">
+      <BrowserRouter basename={basename}>
         <App />
       </BrowserRouter>
     </Provider>
