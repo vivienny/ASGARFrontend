@@ -113,6 +113,7 @@
     pointer-events: auto;
     border-bottom-left-radius: 28px;
     border-bottom-right-radius: 28px;
+    box-sizing: border-box;
 }
 
 .video-brand {
@@ -201,6 +202,7 @@
     animation: slideDown 0.3s ease;
     word-wrap: break-word;
     word-break: break-word;
+    box-sizing: border-box;
 }
 
 @keyframes slideDown {
@@ -288,10 +290,18 @@
     }
     
     .video-expanded-description {
-        max-width: 100%;
-        width: 100%;
-        padding: 12px 14px;
-        min-width: auto;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 12px 14px !important;
+        min-width: auto !important;
+        box-sizing: border-box !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        white-space: normal !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
     }
     
     .video-detail-button {
@@ -303,6 +313,10 @@
     
     .video-overlay {
         padding: 40px 15px 20px 15px;
+        box-sizing: border-box;
+        left: 0;
+        right: 0;
+        width: 100%;
     }
     
     .video-price-row {
@@ -334,6 +348,7 @@
     .video-expanded-description {
         font-size: 13px;
         max-height: 150px;
+        padding: 10px 12px !important;
     }
     
     .video-detail-button {
@@ -359,11 +374,9 @@
 @media (max-width: 768px) and (hover: none) and (pointer: coarse) {
     .video-container video,
     .video-container iframe {
-        /* Принудительно включаем видео на мобильных */
         pointer-events: auto;
     }
     
-    /* Убираем возможные блокировки воспроизведения */
     .video-container video::-webkit-media-controls {
         display: flex !important;
     }
@@ -373,7 +386,39 @@
     }
 }
 
-/* Поднимаем шапку над чёрным фоном */
+/* ===== FIX ДЛЯ iPhone ===== */
+@supports (-webkit-touch-callout: none) {
+    .video-container {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        background: #000000;
+        min-height: 250px;
+    }
+    
+    .video-container video {
+        min-height: 250px;
+        width: 100%;
+        height: auto;
+        background: #000000;
+        object-fit: cover;
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    
+    .video-container video::-webkit-media-controls {
+        display: flex !important;
+    }
+    
+    .video-overlay {
+        pointer-events: none;
+    }
+    
+    .video-overlay > * {
+        pointer-events: auto;
+    }
+}
+
+
 .navbar, .site-header, .mobile-navbar {
     position: relative !important;
     z-index: 2000 !important;

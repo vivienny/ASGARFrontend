@@ -2,7 +2,7 @@
 .services-page-wrapper {
     width: 100%;
     max-width: 1600px;
-    margin: 0 auto;
+    padding-right: 50px !important;
     padding: 20px;
     box-sizing: border-box;
 }
