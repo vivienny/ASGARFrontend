@@ -5,7 +5,7 @@
   "identifier": "com.asgar.avia",
   "build": {
     "frontendDist": "../dist",
-    "devUrl": "https://10.82.26.48:3000",
+    "devUrl": "http://10.82.26.48:3000",  
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build"
   },

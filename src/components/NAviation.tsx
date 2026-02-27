@@ -25,8 +25,9 @@ const NavigationBar = () => {
     }
 
     const getImagePath = (path: string) => {
-        return import.meta.env.PROD ? `/ASGARFrontend${path}` : path
-    }
+    // Для продакшена ищем в assets
+    return import.meta.env.PROD ? `/assets${path}` : path
+}
 
     // Если не мобилка - показываем десктопную шапку
     if (!isMobile) {
